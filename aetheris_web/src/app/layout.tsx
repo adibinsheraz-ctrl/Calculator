@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 import { PwaInstallPopup } from "@/components/PwaInstallPopup";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -41,6 +42,16 @@ export default function RootLayout({
         <meta name="theme-color" content="#00e639" />
       </head>
       <body className={`${barlow.variable} ${instrumentSerif.variable} ${workSans.variable} bg-background text-on-surface selection:bg-tertiary selection:text-on-tertiary min-h-screen flex items-center justify-center p-4`}>
+        {/* Google Analytics */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ3QJ7YC7Q" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LJ3QJ7YC7Q');
+          `}
+        </Script>
         {children}
         <PwaInstallPopup />
         <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_center,_#1e2020_0%,_#0c0f0f_100%)]"></div>
