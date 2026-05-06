@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aetheris Scientific Calculator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Instrument+Serif&amp;family=Work+Sans:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#333535",
+                      "on-error-container": "#ffdad6",
+                      "inverse-primary": "#5f5e5e",
+                      "secondary": "#c8c6c5",
+                      "surface-container": "#1e2020",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "on-primary-container": "#7e7d7d",
+                      "primary-container": "#121212",
+                      "primary": "#c8c6c5",
+                      "inverse-surface": "#e2e2e2",
+                      "on-background": "#e2e2e2",
+                      "on-primary": "#313030",
+                      "tertiary-fixed-dim": "#00e639",
+                      "error-container": "#93000a",
+                      "on-tertiary": "#003907",
+                      "surface-container-low": "#1a1c1c",
+                      "on-primary-fixed-variant": "#474646",
+                      "on-error": "#690005",
+                      "surface-variant": "#333535",
+                      "on-tertiary-fixed-variant": "#00530e",
+                      "on-secondary-fixed-variant": "#474746",
+                      "outline-variant": "#444748",
+                      "inverse-on-surface": "#2f3131",
+                      "on-surface-variant": "#c4c7c7",
+                      "secondary-container": "#474746",
+                      "on-tertiary-container": "#009220",
+                      "on-secondary": "#313030",
+                      "background": "#121414",
+                      "surface-dim": "#121414",
+                      "on-primary-fixed": "#1c1b1b",
+                      "surface-container-high": "#282a2b",
+                      "secondary-fixed": "#e5e2e1",
+                      "tertiary-container": "#001701",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "outline": "#8e9192",
+                      "surface": "#121414",
+                      "tertiary-fixed": "#72ff70",
+                      "surface-bright": "#37393a",
+                      "surface-tint": "#c8c6c5",
+                      "error": "#ffb4ab",
+                      "surface-container-lowest": "#0c0f0f",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "on-tertiary-fixed": "#002203",
+                      "on-secondary-container": "#b7b5b4",
+                      "tertiary": "#00e639",
+                      "on-surface": "#e2e2e2",
+                      "primary-fixed": "#e5e2e1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "display-padding": "20px",
+                      "bezel-margin": "24px",
+                      "section-gutter": "32px",
+                      "button-gap": "12px"
+              },
+              "fontFamily": {
+                      "label-small": [
+                              "Work Sans", "sans-serif"
+                      ],
+                      "button-label": [
+                              "Barlow", "sans-serif"
+                      ],
+                      "lcd-main": [
+                              "Barlow", "sans-serif"
+                      ],
+                      "display-brand": [
+                              "Instrument Serif", "serif"
+                      ]
+              },
+              "fontSize": {
+                      "label-small": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "button-label": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "lcd-main": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-brand": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .texture-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+        .lcd-glow {
+            text-shadow: 0 0 8px rgba(0, 230, 57, 0.3);
+        }
+        .lcd-scanlines {
+            background: linear-gradient(rgba(18, 20, 20, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+        }
+        
+        .physical-button {
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.1), 
+                        2px 2px 4px rgba(0,0,0,0.6);
+            transition: all 0.1s ease;
+        }
+        .physical-button:active {
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.6), 
+                        inset -1px -1px 1px rgba(255,255,255,0.1);
+            transform: translateY(1px);
+        }
+
+        .action-button {
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.1), 
+                        2px 2px 4px rgba(0,0,0,0.6),
+                        0 0 8px rgba(0, 230, 57, 0.15);
+            transition: all 0.1s ease;
+        }
+        .action-button:active {
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.6), 
+                        inset -1px -1px 1px rgba(255,255,255,0.1);
+            transform: translateY(1px);
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased h-screen w-screen overflow-hidden flex flex-col font-button-label texture-noise">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-bezel-margin h-16 bg-surface dark:bg-surface text-on-surface dark:text-on-surface docked full-width top-0 bg-surface shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.05)] flat no shadows shrink-0 z-10 relative">
+<button class="text-on-surface-variant hover:text-tertiary transition-colors scale-95 duration-100 flex items-center justify-center p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings_applications</span>
+</button>
+<h1 class="font-display-brand text-display-brand text-on-surface tracking-widest uppercase">Aetheris</h1>
+<button class="text-on-surface-variant hover:text-tertiary transition-colors scale-95 duration-100 flex items-center justify-center p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">sensors</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col px-bezel-margin pb-[104px] pt-section-gutter overflow-y-auto w-full max-w-2xl mx-auto relative z-0">
+<!-- Recessed LCD Display -->
+<div class="bg-[#080808] rounded-xl mb-section-gutter p-display-padding relative overflow-hidden shadow-[inset_4px_4px_10px_rgba(0,0,0,0.8),inset_-1px_-1px_2px_rgba(255,255,255,0.05)] border border-[#1a1c1c]">
+<!-- Glass Reflection Glare -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent pointer-events-none z-10"></div>
+<!-- Scanlines -->
+<div class="absolute inset-0 lcd-scanlines opacity-20 pointer-events-none z-0"></div>
+<!-- Display Content -->
+<div class="relative z-10 flex flex-col h-full justify-between min-h-[140px]">
+<!-- Status Row -->
+<div class="flex justify-between items-center w-full mb-2">
+<div class="flex gap-4">
+<span class="font-label-small text-label-small text-on-surface-variant opacity-50 uppercase tracking-widest">DEG</span>
+<span class="font-label-small text-label-small text-tertiary uppercase tracking-widest lcd-glow">RAD</span>
+<span class="font-label-small text-label-small text-on-surface-variant opacity-50 uppercase tracking-widest">HYP</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-small text-label-small text-tertiary lcd-glow uppercase tracking-widest">BATT</span>
+<div class="w-6 h-3 border border-tertiary rounded-[2px] p-[1px] relative">
+<div class="bg-tertiary h-full w-[80%] rounded-sm shadow-[0_0_4px_rgba(0,230,57,0.5)]"></div>
+<div class="absolute -right-[3px] top-1/2 -translate-y-1/2 w-[2px] h-[4px] bg-tertiary rounded-r-[1px]"></div>
+</div>
+</div>
+</div>
+<!-- Expression -->
+<div class="text-right font-button-label text-button-label text-tertiary opacity-80 lcd-glow mb-1 truncate">
+                    sin(π/4) * log(100) + √144
+                </div>
+<!-- Result -->
+<div class="text-right font-lcd-main text-lcd-main text-tertiary lcd-glow tabular-nums tracking-tight">
+                    14.41421356
+                </div>
+</div>
+</div>
+<!-- Keypad Matrix -->
+<div class="grid grid-cols-5 gap-button-gap w-full flex-grow">
+<!-- Row 1: Advanced Functions -->
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">sin</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">cos</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">tan</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">log</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">ln</button>
+<!-- Row 2: Secondary Functions -->
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">
+<span class="material-symbols-outlined text-[18px]">square_foot</span>
+</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">^</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">π</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">e</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label text-error hover:text-error-container">AC</button>
+<!-- Row 3: Numpad & Operators -->
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">7</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">8</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">9</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">(</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">)</button>
+<!-- Row 4 -->
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">4</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">5</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">6</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">×</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">÷</button>
+<!-- Row 5 -->
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">1</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">2</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">3</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">+</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">−</button>
+<!-- Row 6 -->
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">0</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">.</button>
+<button class="bg-primary-container rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">EXP</button>
+<button class="bg-surface-container-high rounded-lg flex items-center justify-center h-14 physical-button text-on-surface font-button-label text-button-label hover:text-tertiary">ANS</button>
+<button class="bg-[#1a1c1c] border border-outline-variant rounded-lg flex items-center justify-center h-14 action-button text-tertiary font-button-label text-button-label hover:text-tertiary-fixed">=</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-bezel-margin pb-6 pt-2 bg-surface border-t border-outline-variant bg-surface shadow-[0_-4px_10px_rgba(0,0,0,0.5)] docked full-width bottom-0 rounded-t-xl shrink-0">
+<button class="flex flex-col items-center justify-center text-tertiary bg-surface-container-highest rounded-xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_rgba(255,255,255,0.1)] translate-y-px px-4 py-2 hover:bg-surface-container-high transform translate-y-0.5 duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calculate</span>
+<span class="font-button-label text-button-label mt-1">MATH</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] hover:bg-surface-container-high rounded-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span class="font-button-label text-button-label mt-1">STATS</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] hover:bg-surface-container-high rounded-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">terminal</span>
+<span class="font-button-label text-button-label mt-1">PROG</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] hover:bg-surface-container-high rounded-xl">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">show_chart</span>
+<span class="font-button-label text-button-label mt-1">GRAPH</span>
+</button>
+</nav>
+</body></html>

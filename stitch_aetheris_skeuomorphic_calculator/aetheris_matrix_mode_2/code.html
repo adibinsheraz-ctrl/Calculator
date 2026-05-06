@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aetheris Matrix Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#333535",
+                        "surface-container": "#1e2020",
+                        "surface": "#121414",
+                        "surface-dim": "#121414",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-container": "#121212",
+                        "inverse-primary": "#5f5e5e",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed": "#002203",
+                        "surface-container-high": "#282a2b",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-error": "#690005",
+                        "tertiary": "#00e639",
+                        "outline": "#8e9192",
+                        "on-surface-variant": "#c4c7c7",
+                        "on-surface": "#e2e2e2",
+                        "on-secondary": "#313030",
+                        "on-primary": "#313030",
+                        "on-tertiary": "#003907",
+                        "on-primary-container": "#7e7d7d",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-bright": "#37393a",
+                        "surface-tint": "#c8c6c5",
+                        "tertiary-container": "#001701",
+                        "surface-variant": "#333535",
+                        "secondary-container": "#474746",
+                        "on-tertiary-fixed-variant": "#00530e",
+                        "on-primary-fixed-variant": "#474646",
+                        "error-container": "#93000a",
+                        "on-error-container": "#ffdad6",
+                        "background": "#121414",
+                        "surface-container-low": "#1a1c1c",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "inverse-on-surface": "#2f3131",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-background": "#e2e2e2",
+                        "tertiary-fixed": "#72ff70",
+                        "on-tertiary-container": "#009220",
+                        "secondary": "#c8c6c5",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "outline-variant": "#444748",
+                        "primary": "#c8c6c5",
+                        "tertiary-fixed-dim": "#00e639"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "section-gutter": "32px",
+                        "display-padding": "20px",
+                        "button-gap": "12px",
+                        "bezel-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "display-brand": ["Instrument Serif"],
+                        "button-label": ["Barlow"],
+                        "lcd-main": ["Barlow"],
+                        "label-small": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "display-brand": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "button-label": ["14px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "lcd-main": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-small": ["11px", { "lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .skeu-shadow {
+            box-shadow: inset 1px 1px 0px rgba(255,255,255,0.1), 3px 3px 6px rgba(0,0,0,0.6);
+        }
+        .skeu-pressed {
+            box-shadow: inset 3px 3px 6px rgba(0,0,0,0.8), -1px -1px 0px rgba(255,255,255,0.05);
+            transform: translateY(1px);
+        }
+        .lcd-recessed {
+            box-shadow: inset 8px 8px 16px rgba(0,0,0,0.9), inset -2px -2px 4px rgba(255,255,255,0.02);
+        }
+        .lcd-glow {
+            text-shadow: 0 0 12px rgba(0, 230, 57, 0.4);
+        }
+        .scanlines {
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 50%);
+            background-size: 100% 2px;
+        }
+        .carbon-texture {
+            background-color: #121414;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+            background-size: 4px 4px;
+        }
+        .glare {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 40%, transparent 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-button-label min-h-screen selection:bg-tertiary selection:text-on-tertiary">
+<!-- NAVIGATION DRAWER (The Anchor) -->
+<aside class="fixed inset-y-0 left-0 z-[100] flex flex-col p-display-padding gap-unit bg-surface-container border-r border-outline-variant shadow-2xl h-full w-80 rounded-r-none">
+<div class="mb-8 px-4">
+<h1 class="font-display-brand text-display-brand text-on-surface">INSTRUMENT MODES</h1>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+<span class="font-button-label text-button-label">Basic</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+<span class="font-button-label text-button-label">Scientific</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-button-label text-button-label">Programmer</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+<span class="font-button-label text-button-label">Graphing</span>
+</a>
+<a class="flex items-center gap-button-gap bg-primary-container text-tertiary font-bold px-4 py-3 rounded-lg shadow-[inset_0px_2px_4px_rgba(0,0,0,0.6)] scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="grid_on">grid_on</span>
+<span class="font-button-label text-button-label">Matrix</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-button-label text-button-label">Statistics</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="straighten">straighten</span>
+<span class="font-button-label text-button-label">Unit Converter</span>
+</a>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+<span class="font-button-label text-button-label">About</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- MAIN CHASSIS -->
+<main class="ml-80 flex-1 min-h-screen carbon-texture p-bezel-margin flex flex-col gap-section-gutter">
+<!-- TOP APP BAR -->
+<header class="flex justify-between items-center w-full px-bezel-margin h-16 bg-surface-container-highest border-b border-outline-variant shadow-md rounded-xl">
+<div class="flex items-center gap-4">
+<button class="text-on-surface hover:bg-surface-bright p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="font-display-brand text-display-brand tracking-widest text-on-surface">AETHERIS</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="font-label-small text-label-small text-on-surface-variant uppercase tracking-tighter">Status</span>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#00e639]"></div>
+<span class="font-button-label text-xs text-tertiary">SYSTEM READY</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- LCD DISPLAY AREA -->
+<section class="lcd-recessed bg-[#080808] relative overflow-hidden rounded-xl border-4 border-surface-container-high h-64 flex flex-col p-display-padding">
+<div class="scanlines absolute inset-0 pointer-events-none opacity-10"></div>
+<div class="glare absolute inset-0 pointer-events-none"></div>
+<div class="flex justify-between items-start z-10">
+<span class="font-label-small text-label-small text-tertiary opacity-60">MATRIX_MODE_ACTIVE // A [3x3]</span>
+<span class="font-label-small text-label-small text-tertiary opacity-60">ENG_NOTATION</span>
+</div>
+<div class="flex-1 flex items-center justify-center gap-button-gap z-10">
+<!-- Matrix Representation on LCD -->
+<div class="flex flex-col gap-2 font-lcd-main text-lcd-main text-tertiary lcd-glow">
+<div class="flex gap-8 border-l-2 border-r-2 border-tertiary border-opacity-30 px-4">
+<div class="flex flex-col text-center w-24">1.02</div>
+<div class="flex flex-col text-center w-24">0.00</div>
+<div class="flex flex-col text-center w-24">-4.5</div>
+</div>
+<div class="flex gap-8 border-l-2 border-r-2 border-tertiary border-opacity-30 px-4">
+<div class="flex flex-col text-center w-24">2.11</div>
+<div class="flex flex-col text-center w-24">1.00</div>
+<div class="flex flex-col text-center w-24">0.00</div>
+</div>
+<div class="flex gap-8 border-l-2 border-r-2 border-tertiary border-opacity-30 px-4">
+<div class="flex flex-col text-center w-24">0.00</div>
+<div class="flex flex-col text-center w-24">0.50</div>
+<div class="flex flex-col text-center w-24">1.00</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-end z-10 border-t border-tertiary border-opacity-10 pt-2">
+<span class="font-label-small text-label-small text-on-surface-variant">DET: 1.0200</span>
+<span class="font-label-small text-label-small text-on-surface-variant">TRACE: 3.0200</span>
+</div>
+</section>
+<!-- CONTROL MATRIX INTERFACE -->
+<div class="grid grid-cols-12 gap-button-gap">
+<!-- Matrix Dimensions & Setup (Left Panel) -->
+<div class="col-span-3 flex flex-col gap-4">
+<div class="p-4 bg-surface-container rounded-xl border border-outline-variant/30">
+<h3 class="font-label-small text-label-small text-on-surface-variant mb-4 uppercase">Matrix Geometry</h3>
+<div class="grid grid-cols-2 gap-button-gap">
+<button class="bg-surface-container-high h-12 rounded-lg skeu-shadow flex flex-col items-center justify-center active:skeu-pressed">
+<span class="text-[10px] text-on-surface-variant font-bold">ROWS</span>
+<span class="font-button-label text-tertiary">03</span>
+</button>
+<button class="bg-surface-container-high h-12 rounded-lg skeu-shadow flex flex-col items-center justify-center active:skeu-pressed">
+<span class="text-[10px] text-on-surface-variant font-bold">COLS</span>
+<span class="font-button-label text-tertiary">03</span>
+</button>
+</div>
+</div>
+<div class="p-4 bg-surface-container rounded-xl border border-outline-variant/30 flex-1">
+<h3 class="font-label-small text-label-small text-on-surface-variant mb-4 uppercase">Registers</h3>
+<div class="flex flex-col gap-2">
+<button class="flex justify-between items-center w-full px-3 py-2 bg-primary-container rounded border border-tertiary/20 text-tertiary skeu-shadow active:skeu-pressed">
+<span class="text-xs">MAT_A</span>
+<span class="material-symbols-outlined text-sm" data-icon="radio_button_checked">radio_button_checked</span>
+</button>
+<button class="flex justify-between items-center w-full px-3 py-2 bg-surface-container-highest rounded text-on-surface-variant skeu-shadow active:skeu-pressed">
+<span class="text-xs">MAT_B</span>
+<span class="material-symbols-outlined text-sm" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</button>
+<button class="flex justify-between items-center w-full px-3 py-2 bg-surface-container-highest rounded text-on-surface-variant skeu-shadow active:skeu-pressed">
+<span class="text-xs">MAT_C</span>
+<span class="material-symbols-outlined text-sm" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Input Grid (Center Panel) -->
+<div class="col-span-6 grid grid-cols-4 gap-button-gap bg-surface-container p-6 rounded-2xl shadow-2xl border border-outline-variant/20">
+<!-- Numbers and Matrix Specifics -->
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">7</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">8</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">9</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl skeu-shadow text-error text-sm font-bold active:skeu-pressed">DEL</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">4</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">5</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">6</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl skeu-shadow text-on-surface-variant text-sm font-bold active:skeu-pressed">CLR</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">1</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">2</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">3</button>
+<button class="aspect-square bg-surface-container-highest rounded-xl skeu-shadow text-on-surface-variant text-sm font-bold active:skeu-pressed">+/-</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">0</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">.</button>
+<button class="aspect-square bg-[#1A1A1A] rounded-xl skeu-shadow text-on-surface text-xl active:skeu-pressed">E</button>
+<button class="aspect-square bg-tertiary-container border border-tertiary/40 rounded-xl skeu-shadow text-tertiary text-xl font-bold active:skeu-pressed shadow-[0_0_15px_rgba(0,230,57,0.2)]">=</button>
+</div>
+<!-- Operations (Right Panel) -->
+<div class="col-span-3 flex flex-col gap-4">
+<div class="flex flex-col gap-3 p-4 bg-surface-container rounded-xl border border-outline-variant/30 flex-1">
+<h3 class="font-label-small text-label-small text-on-surface-variant mb-2 uppercase">Functions</h3>
+<button class="flex items-center gap-3 px-4 py-3 bg-surface-container-high rounded-lg skeu-shadow text-on-surface hover:bg-surface-bright transition-all active:skeu-pressed">
+<span class="material-symbols-outlined text-tertiary" data-icon="functions">functions</span>
+<span class="text-xs font-bold">DETERMINANT</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 bg-surface-container-high rounded-lg skeu-shadow text-on-surface hover:bg-surface-bright transition-all active:skeu-pressed">
+<span class="material-symbols-outlined text-tertiary" data-icon="flip">flip</span>
+<span class="text-xs font-bold">INVERSE</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 bg-surface-container-high rounded-lg skeu-shadow text-on-surface hover:bg-surface-bright transition-all active:skeu-pressed">
+<span class="material-symbols-outlined text-tertiary" data-icon="rotate_90_degrees_cw">rotate_90_degrees_cw</span>
+<span class="text-xs font-bold">TRANSPOSE</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 bg-surface-container-high rounded-lg skeu-shadow text-on-surface hover:bg-surface-bright transition-all active:skeu-pressed">
+<span class="material-symbols-outlined text-tertiary" data-icon="equalizer">equalizer</span>
+<span class="text-xs font-bold">EIGENVALUES</span>
+</button>
+<div class="mt-auto pt-4 border-t border-outline-variant/20">
+<div class="flex items-center justify-between px-2">
+<span class="text-[10px] text-on-surface-variant uppercase">Mode: SLOW_PRECISION</span>
+<div class="w-8 h-4 bg-surface-container-lowest rounded-full p-0.5 relative cursor-pointer border border-outline-variant/40">
+<div class="absolute right-0.5 w-3 h-3 bg-tertiary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- BENTO STYLE QUICK TOOLS -->
+<div class="grid grid-cols-3 gap-button-gap mt-auto">
+<div class="bg-surface-container-high rounded-2xl p-6 border border-outline-variant/20 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-tertiary border border-tertiary/20">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">History Log</h4>
+<p class="text-[10px] text-on-surface-variant">Last 12 operations stored</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-2xl p-6 border border-outline-variant/20 flex flex-col gap-4 overflow-hidden relative">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 grayscale mix-blend-overlay" data-alt="A macro photograph of an advanced circuit board with glowing green pathways and copper connections. The lighting is dramatic and low-key, emphasizing the tactile quality of the hardware. The technical luxury aesthetic is captured through the blend of carbon-fiber textures and sharp electronic components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIwx9KHeV4JVQT8r8rry-qyUq8mv1iyqQlEw377NlEiC3sEojtrPf95LI0LOhihmCDASypKGfUfNqf2bvaTPjzYW2aWgDLP_heQxSS2C_cVWBu29Wjymp1b0HncgHwD1EvKWPyjL4LNBwa2Mysfi25K5Uw5_pO81TvtmhYuYDBD4XqG4hljZ1HnGvfo6K2bcMgWszaXtVZuKSwsxUxAOJM7F9NGsfkPD7lAM2Sydkt5dU4f6ZbbRt09ZU1wSvenQo1CO5P1sJiVg"/>
+<div class="relative z-10">
+<h4 class="text-sm font-bold">Cloud Sync</h4>
+<p class="text-[10px] text-on-surface-variant">Aetheris-Net Connection: Active</p>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-2xl p-6 border border-outline-variant/20 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-tertiary border border-tertiary/20">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</div>
+<div>
+<h4 class="text-sm font-bold">Documentation</h4>
+<p class="text-[10px] text-on-surface-variant">Quick matrix syntax guide</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FLOATING STATUS BUTTON (Suppressed on details, shown here for home context) -->
+<button class="fixed bottom-bezel-margin right-bezel-margin w-14 h-14 bg-tertiary rounded-full flex items-center justify-center text-on-tertiary shadow-[0_0_24px_rgba(0,230,57,0.4)] skeu-shadow active:skeu-pressed z-[110]">
+<span class="material-symbols-outlined" data-icon="add" data-weight="fill" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</body></html>

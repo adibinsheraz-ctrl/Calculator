@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aetheris | Statistics Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .recessed-display {
+            box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.8), inset -2px -2px 4px rgba(255, 255, 255, 0.05);
+        }
+        .tactile-button {
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6), -1px -1px 2px rgba(255, 255, 255, 0.1);
+            transition: all 0.075s ease;
+        }
+        .tactile-button:active {
+            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.8);
+            transform: translateY(1px);
+        }
+        .lcd-glow {
+            text-shadow: 0 0 12px rgba(0, 230, 57, 0.4);
+        }
+        .scanlines {
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+        .brushed-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#333535",
+                        "surface-container": "#1e2020",
+                        "surface": "#121414",
+                        "surface-dim": "#121414",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-container": "#121212",
+                        "inverse-primary": "#5f5e5e",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed": "#002203",
+                        "surface-container-high": "#282a2b",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-error": "#690005",
+                        "tertiary": "#00e639",
+                        "outline": "#8e9192",
+                        "on-surface-variant": "#c4c7c7",
+                        "on-surface": "#e2e2e2",
+                        "on-secondary": "#313030",
+                        "on-primary": "#313030",
+                        "on-tertiary": "#003907",
+                        "on-primary-container": "#7e7d7d",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-bright": "#37393a",
+                        "surface-tint": "#c8c6c5",
+                        "tertiary-container": "#001701",
+                        "surface-variant": "#333535",
+                        "secondary-container": "#474746",
+                        "on-tertiary-fixed-variant": "#00530e",
+                        "on-primary-fixed-variant": "#474646",
+                        "error-container": "#93000a",
+                        "on-error-container": "#ffdad6",
+                        "background": "#121414",
+                        "surface-container-low": "#1a1c1c",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "inverse-on-surface": "#2f3131",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-background": "#e2e2e2",
+                        "tertiary-fixed": "#72ff70",
+                        "on-tertiary-container": "#009220",
+                        "secondary": "#c8c6c5",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "outline-variant": "#444748",
+                        "primary": "#c8c6c5",
+                        "tertiary-fixed-dim": "#00e639"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "section-gutter": "32px",
+                        "display-padding": "20px",
+                        "button-gap": "12px",
+                        "bezel-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "display-brand": ["Instrument Serif"],
+                        "button-label": ["Barlow"],
+                        "lcd-main": ["Barlow"],
+                        "label-small": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "display-brand": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "button-label": ["14px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "lcd-main": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-small": ["11px", { "lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-button-label min-h-screen selection:bg-tertiary selection:text-on-tertiary overflow-hidden">
+<!-- Global Layout Wrapper -->
+<div class="flex h-screen w-full relative">
+<!-- Navigation Drawer (SideNav) -->
+<aside class="fixed inset-y-0 left-0 z-[100] flex flex-col p-display-padding gap-unit bg-surface-container border-r border-outline-variant shadow-2xl h-full w-80 rounded-r-none">
+<div class="mb-section-gutter">
+<h2 class="font-display-brand text-display-brand text-on-surface tracking-widest px-4">INSTRUMENT MODES</h2>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">calculate</span>
+<span class="font-button-label text-button-label">Basic</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">science</span>
+<span class="font-button-label text-button-label">Scientific</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-button-label text-button-label">Programmer</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+<span class="font-button-label text-button-label">Graphing</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">grid_on</span>
+<span class="font-button-label text-button-label">Matrix</span>
+</a>
+<a class="flex items-center gap-button-gap bg-primary-container text-tertiary font-bold px-4 py-3 rounded-lg shadow-[inset_0px_2px_4px_rgba(0,0,0,0.6)] scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-button-label text-button-label">Statistics</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">straighten</span>
+<span class="font-button-label text-button-label">Unit Converter</span>
+</a>
+<div class="mt-auto pt-section-gutter">
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">info</span>
+<span class="font-button-label text-button-label">About</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Main Content Area (The Chassis) -->
+<main class="ml-80 flex-1 flex flex-col p-bezel-margin relative overflow-hidden">
+<div class="absolute inset-0 brushed-texture pointer-events-none"></div>
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-unit h-16 mb-section-gutter z-10">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface p-2 hover:bg-surface-bright rounded-lg transition-colors">menu</button>
+<h1 class="font-display-brand text-display-brand tracking-widest text-on-surface">AETHERIS</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary shadow-[0_0_8px_rgba(0,230,57,0.6)]"></div>
+<span class="font-label-small text-label-small text-on-surface tracking-widest">SYSTEM READY</span>
+</div>
+<button class="material-symbols-outlined text-on-surface p-2 hover:bg-surface-bright rounded-lg transition-colors">settings</button>
+</div>
+</header>
+<!-- Instrument Interface Grid -->
+<div class="flex-1 grid grid-cols-12 gap-section-gutter max-w-7xl mx-auto w-full">
+<!-- Left Column: Display and History -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-section-gutter">
+<!-- The Recessed LCD Display -->
+<section class="recessed-display bg-[#080808] rounded-xl p-display-padding relative overflow-hidden flex flex-col justify-between min-h-[320px]">
+<div class="scanlines absolute inset-0 z-10"></div>
+<div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-20"></div>
+<div class="flex justify-between items-start z-30">
+<div class="flex flex-col gap-1">
+<span class="font-label-small text-label-small text-tertiary/60 uppercase">Active Dataset [N=24]</span>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary text-[10px] font-bold border border-tertiary/20 rounded">SAMPLE_MODE</span>
+<span class="px-2 py-0.5 bg-white/5 text-on-surface-variant text-[10px] font-bold border border-white/10 rounded">STD_DEV</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-small text-label-small text-tertiary/60 block">TIMESTAMP</span>
+<span class="font-lcd-main text-sm text-tertiary">02-14-2024 14:32:01</span>
+</div>
+</div>
+<div class="flex-1 flex items-center justify-center z-30 py-8">
+<div class="text-center">
+<span class="font-lcd-main text-lcd-main text-tertiary lcd-glow tabular-nums">1,492.68</span>
+<div class="font-label-small text-label-small text-tertiary/40 mt-2 tracking-widest">MEAN ARITHMETIC</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 z-30 border-t border-white/5 pt-4">
+<div class="flex flex-col">
+<span class="font-label-small text-label-small text-on-surface-variant/50">MEDIAN</span>
+<span class="font-button-label text-tertiary">1,488.50</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-small text-label-small text-on-surface-variant/50">VARIANCE</span>
+<span class="font-button-label text-tertiary">12.42</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-small text-label-small text-on-surface-variant/50">RANGE</span>
+<span class="font-button-label text-tertiary">84.00</span>
+</div>
+</div>
+</section>
+<!-- Data List Entry / History -->
+<section class="flex-1 flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<h3 class="font-button-label text-on-surface-variant uppercase tracking-widest text-xs">Dataset Entries</h3>
+<button class="text-tertiary text-xs hover:underline decoration-tertiary/30">Clear All</button>
+</div>
+<div class="grid grid-cols-4 gap-button-gap">
+<!-- Tactical List Items -->
+<div class="bg-surface-container-high p-4 rounded-lg flex justify-between items-center shadow-inner border border-outline-variant/20">
+<span class="font-label-small text-on-surface-variant">01</span>
+<span class="font-lcd-main text-lg text-on-surface">1440.0</span>
+</div>
+<div class="bg-surface-container-high p-4 rounded-lg flex justify-between items-center shadow-inner border border-outline-variant/20">
+<span class="font-label-small text-on-surface-variant">02</span>
+<span class="font-lcd-main text-lg text-on-surface">1482.5</span>
+</div>
+<div class="bg-surface-container-high p-4 rounded-lg flex justify-between items-center shadow-inner border border-outline-variant/20">
+<span class="font-label-small text-on-surface-variant">03</span>
+<span class="font-lcd-main text-lg text-on-surface">1510.2</span>
+</div>
+<div class="bg-surface-container-high p-4 rounded-lg flex justify-between items-center shadow-inner border border-outline-variant/20">
+<span class="font-label-small text-on-surface-variant">04</span>
+<span class="font-lcd-main text-lg text-on-surface">1498.9</span>
+</div>
+<!-- Entry Placeholder -->
+<div class="bg-surface-container-low p-4 rounded-lg flex justify-center items-center border border-dashed border-outline-variant/40 hover:border-tertiary/40 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors">add</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Control Matrix -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-section-gutter">
+<!-- Keypad -->
+<div class="bg-surface-container rounded-xl p-6 shadow-2xl border border-outline-variant/30 flex flex-col gap-6 h-full">
+<div class="grid grid-cols-4 gap-button-gap h-full">
+<!-- Function Row -->
+<button class="tactile-button bg-[#1A1A1A] text-on-surface-variant rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">Σx</button>
+<button class="tactile-button bg-[#1A1A1A] text-on-surface-variant rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">Σx²</button>
+<button class="tactile-button bg-[#1A1A1A] text-on-surface-variant rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">σx</button>
+<button class="tactile-button bg-surface-container-highest text-error rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">AC</button>
+<!-- Numeric Pad -->
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">7</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">8</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">9</button>
+<button class="tactile-button bg-[#1A1A1A] text-on-surface-variant rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">DEL</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">4</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">5</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">6</button>
+<button class="tactile-button bg-[#1A1A1A] text-on-surface-variant rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">VAR</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">1</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">2</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">3</button>
+<button class="tactile-button bg-[#1A1A1A] text-on-surface-variant rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">DATA</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">0</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">.</button>
+<button class="tactile-button bg-primary-container text-on-surface rounded-lg p-6 font-lcd-main text-xl">EXP</button>
+<button class="tactile-button bg-[#1A1A1A] text-on-surface-variant rounded-lg p-4 font-button-label text-xs uppercase flex items-center justify-center">DIST</button>
+<!-- Execution Button -->
+<button class="col-span-4 tactile-button bg-[#1A1A1A] text-tertiary rounded-lg p-4 font-button-label text-sm tracking-widest uppercase border border-tertiary/20 flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+                                Calculate Results
+                                <div class="w-1.5 h-1.5 rounded-full bg-tertiary group-hover:shadow-[0_0_8px_rgba(0,230,57,1)] transition-all"></div>
+</button>
+</div>
+<!-- Mode Switcher -->
+<div class="mt-auto border-t border-white/5 pt-6">
+<div class="flex justify-between items-center">
+<span class="font-label-small text-on-surface-variant/50">STATISTIC MODE</span>
+<div class="flex bg-surface-container-low p-1 rounded-lg gap-1 border border-outline-variant/30">
+<button class="px-3 py-1 bg-surface-container-highest text-[10px] font-bold text-on-surface rounded shadow-sm">SINGLE</button>
+<button class="px-3 py-1 text-[10px] font-bold text-on-surface-variant hover:text-on-surface transition-colors">BIVAR</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Analysis Visualization Card -->
+<div class="mt-section-gutter w-full">
+<div class="bg-surface-container rounded-xl p-6 border border-outline-variant/30 relative overflow-hidden h-[240px]">
+<div class="absolute top-0 right-0 p-6">
+<span class="font-label-small text-on-surface-variant/40">DISTRIBUTION_PROFILE_VIEW</span>
+</div>
+<div class="h-full flex items-end gap-1 px-10 pb-4">
+<!-- Simulated Bar Chart -->
+<div class="flex-1 bg-tertiary/10 border-t border-x border-tertiary/30 h-[20%] rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary/15 border-t border-x border-tertiary/30 h-[35%] rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary/20 border-t border-x border-tertiary/30 h-[50%] rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary/40 border-t border-x border-tertiary/50 h-[85%] rounded-t-sm shadow-[0_0_15px_rgba(0,230,57,0.1)]"></div>
+<div class="flex-1 bg-tertiary/25 border-t border-x border-tertiary/30 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary/15 border-t border-x border-tertiary/30 h-[40%] rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary/10 border-t border-x border-tertiary/30 h-[25%] rounded-t-sm"></div>
+<div class="flex-1 bg-tertiary/5 border-t border-x border-tertiary/30 h-[15%] rounded-t-sm"></div>
+</div>
+<!-- Distribution Line Overlay (SVG) -->
+<svg class="absolute inset-x-0 bottom-4 h-full w-full pointer-events-none px-10" preserveaspectratio="none">
+<path d="M 0 200 Q 150 50 300 200" fill="none" stroke="rgba(0, 230, 57, 0.5)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+</div>
+</div>
+</main>
+</div>
+</body></html>

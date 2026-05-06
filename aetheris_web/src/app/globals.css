@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #0c0f0f;
+  --chassis-color: #1a1a1a;
+  --lcd-bg: #0a0c0a;
+  --btn-base: #1A1A1A;
+  --btn-primary: #2A2A2A;
+  --btn-tertiary: #00e639;
+  --tertiary-glow: rgba(0, 230, 57, 0.6);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: #e2e2e2;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.aetheris-chassis {
+  width: 100%;
+  max-width: 420px;
+  height: 850px;
+  background-color: #0a0a0a;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 4px 4px, 20px 20px, 20px 20px;
+  border: 8px solid #1a1a1a;
+  border-radius: 48px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8), inset 0 2px 1px rgba(255,255,255,0.1);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.aetheris-lcd {
+  background-color: var(--lcd-bg);
+  border-radius: 12px;
+  padding: 20px;
+  height: 192px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 4px 12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 2px rgba(0, 0, 0, 0.8),
+    0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid #000;
+  margin-top: 24px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lcd-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 230, 57, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.lcd-scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+  background-size: 100% 2px;
+  pointer-events: none;
+  z-index: 11;
+  opacity: 0.3;
+}
+
+.aetheris-btn {
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.075s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 56px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  background: linear-gradient(to bottom, #2A2A2A, #1A1A1A);
+  color: #c4c7c7;
+  box-shadow: 0 4px 0 0 #000, 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.aetheris-btn:active, .aetheris-btn.active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 0 #000;
+  filter: brightness(0.9);
+}
+
+.aetheris-btn-primary {
+  background: linear-gradient(to bottom, #3A3A3A, #222222);
+  color: #fff;
+}
+
+.aetheris-btn-tertiary {
+  background: linear-gradient(to bottom, #00e639, #00b32c);
+  color: #003907;
+  box-shadow: 0 4px 0 0 #00530e, 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.aetheris-btn-tertiary:active, .aetheris-btn-tertiary.active {
+  box-shadow: 0 2px 0 0 #00530e;
+}
+
+.aetheris-btn-shift {
+  background: #00e639;
+  color: #003907;
+}
+
+.aetheris-grid {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  padding-top: 32px;
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
+
+.lcd-glow-text {
+  color: #00e639;
+  text-shadow: 0 0 15px var(--tertiary-glow), 0 0 2px rgba(0, 230, 57, 0.8);
+  font-size: 48px;
+  font-weight: 600;
+  text-align: right;
+  margin-top: auto;
+}
+
+.lcd-status-bar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 230, 57, 0.1);
+  padding-bottom: 4px;
+  font-size: 9px;
+  color: rgba(0, 230, 57, 0.4);
+  font-weight: bold;
+}

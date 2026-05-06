@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AETHERIS - Graphing Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .recessed-display {
+            box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.8), inset -2px -2px 4px rgba(255, 255, 255, 0.05);
+        }
+        .lcd-glow {
+            text-shadow: 0 0 12px rgba(0, 230, 57, 0.4);
+        }
+        .scanlines {
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+        }
+        .glare-overlay {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.02) 100%);
+        }
+        .button-positive {
+            box-shadow: -2px -2px 4px rgba(255, 255, 255, 0.08), 4px 4px 8px rgba(0, 0, 0, 0.6);
+        }
+        .button-positive:active {
+            box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.8), inset -1px -1px 2px rgba(255, 255, 255, 0.05);
+            transform: translateY(1px);
+        }
+        .carbon-texture {
+            background-color: #121212;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+            background-size: 4px 4px;
+        }
+    </style>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#333535",
+                      "surface-container": "#1e2020",
+                      "surface": "#121414",
+                      "surface-dim": "#121414",
+                      "primary-fixed": "#e5e2e1",
+                      "primary-container": "#121212",
+                      "inverse-primary": "#5f5e5e",
+                      "on-primary-fixed": "#1c1b1b",
+                      "on-tertiary-fixed": "#002203",
+                      "surface-container-high": "#282a2b",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-secondary-container": "#b7b5b4",
+                      "on-error": "#690005",
+                      "tertiary": "#00e639",
+                      "outline": "#8e9192",
+                      "on-surface-variant": "#c4c7c7",
+                      "on-surface": "#e2e2e2",
+                      "on-secondary": "#313030",
+                      "on-primary": "#313030",
+                      "on-tertiary": "#003907",
+                      "on-primary-container": "#7e7d7d",
+                      "error": "#ffb4ab",
+                      "inverse-surface": "#e2e2e2",
+                      "surface-bright": "#37393a",
+                      "surface-tint": "#c8c6c5",
+                      "tertiary-container": "#001701",
+                      "surface-variant": "#333535",
+                      "secondary-container": "#474746",
+                      "on-tertiary-fixed-variant": "#00530e",
+                      "on-primary-fixed-variant": "#474646",
+                      "error-container": "#93000a",
+                      "on-error-container": "#ffdad6",
+                      "background": "#121414",
+                      "surface-container-low": "#1a1c1c",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "inverse-on-surface": "#2f3131",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-background": "#e2e2e2",
+                      "tertiary-fixed": "#72ff70",
+                      "on-tertiary-container": "#009220",
+                      "secondary": "#c8c6c5",
+                      "surface-container-lowest": "#0c0f0f",
+                      "on-secondary-fixed-variant": "#474746",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "outline-variant": "#444748",
+                      "primary": "#c8c6c5",
+                      "tertiary-fixed-dim": "#00e639"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "section-gutter": "32px",
+                      "display-padding": "20px",
+                      "button-gap": "12px",
+                      "bezel-margin": "24px"
+              },
+              "fontFamily": {
+                      "display-brand": ["Instrument Serif"],
+                      "button-label": ["Barlow"],
+                      "lcd-main": ["Barlow"],
+                      "label-small": ["Work Sans"]
+              },
+              "fontSize": {
+                      "display-brand": ["24px", {"lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                      "button-label": ["14px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                      "lcd-main": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-small": ["11px", {"lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen selection:bg-tertiary selection:text-on-tertiary overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center w-full px-bezel-margin h-16 bg-surface-container-highest border-b border-outline-variant shadow-md fixed top-0 z-[110]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface cursor-pointer">menu</span>
+<h1 class="font-display-brand text-display-brand tracking-widest text-on-surface">AETHERIS</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(0,230,57,0.8)]"></span>
+<span class="font-label-small text-label-small text-tertiary uppercase tracking-tighter">Connected</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">settings</span>
+</div>
+</header>
+<!-- Side Navigation Drawer -->
+<aside class="fixed inset-y-0 left-0 z-[100] flex flex-col p-display-padding gap-unit h-full w-80 rounded-r-none bg-surface-container border-r border-outline-variant shadow-2xl pt-24">
+<div class="mb-4 px-4">
+<p class="font-display-brand text-display-brand text-on-surface text-sm opacity-60">INSTRUMENT MODES</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">calculate</span>
+<span class="font-button-label text-button-label">Basic</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">science</span>
+<span class="font-button-label text-button-label">Scientific</span>
+</a>
+<a class="flex items-center gap-button-gap bg-primary-container text-tertiary font-bold px-4 py-3 rounded-lg shadow-[inset_0px_2px_4px_rgba(0,0,0,0.6)] scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">show_chart</span>
+<span class="font-button-label text-button-label">Graphing</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-button-label text-button-label">Programmer</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">grid_on</span>
+<span class="font-button-label text-button-label">Matrix</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-button-label text-button-label">Statistics</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">straighten</span>
+<span class="font-button-label text-button-label">Unit Converter</span>
+</a>
+<div class="mt-auto pt-8">
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:text-on-surface hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">info</span>
+<span class="font-button-label text-button-label">About</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Main Workspace -->
+<main class="ml-80 pt-16 h-screen flex flex-col carbon-texture relative">
+<!-- Chassis Inner Border (Skeuomorphic Detail) -->
+<div class="absolute inset-0 pointer-events-none border-[12px] border-surface-container-lowest opacity-40"></div>
+<div class="flex-1 p-bezel-margin flex flex-col gap-section-gutter max-w-6xl mx-auto w-full">
+<!-- Recessed LCD Display Area -->
+<div class="relative flex-1 min-h-[400px] rounded-xl overflow-hidden recessed-display bg-[#080808] border-4 border-[#1a1a1a]">
+<!-- Scanline & Glare Effects -->
+<div class="absolute inset-0 scanlines pointer-events-none z-10 opacity-20"></div>
+<div class="absolute inset-0 glare-overlay pointer-events-none z-20"></div>
+<!-- Grid Labels -->
+<div class="absolute top-4 left-4 z-30 flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="text-tertiary font-button-label text-xs uppercase tracking-widest lcd-glow">f(x) = sin(x) * cos(0.5x)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant font-label-small text-[10px] opacity-60 uppercase">Zoom: 1.0x | Center: 0,0</span>
+</div>
+</div>
+<!-- Coordinate Plane Canvas -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<!-- Vertical Axis -->
+<div class="h-full w-[1px] bg-tertiary opacity-30 shadow-[0_0_5px_rgba(0,230,57,0.5)]"></div>
+<!-- Horizontal Axis -->
+<div class="absolute w-full h-[1px] bg-tertiary opacity-30 shadow-[0_0_5px_rgba(0,230,57,0.5)]"></div>
+<!-- Grid Lines -->
+<div class="absolute inset-0 grid grid-cols-10 grid-rows-10 opacity-10">
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+<div class="border-r border-b border-tertiary/20 w-full h-full"></div>
+</div>
+</div>
+<!-- Simulated Graph Rendering -->
+<div class="absolute inset-0 flex items-center justify-center p-8">
+<svg class="w-full h-full drop-shadow-[0_0_8px_rgba(0,230,57,0.6)]" viewbox="0 0 1000 500">
+<path d="M 0 250 Q 125 0, 250 250 T 500 250 T 750 250 T 1000 250" fill="none" stroke="#00e639" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+</div>
+</div>
+<!-- Control Interface -->
+<div class="grid grid-cols-12 gap-button-gap">
+<!-- Function Input Panel -->
+<div class="col-span-8 grid grid-cols-5 gap-button-gap bg-surface-container-low p-4 rounded-xl border border-outline-variant/20">
+<!-- Numbers & Constants -->
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">7</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">8</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">9</button>
+<button class="button-positive aspect-square bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">DEL</button>
+<button class="button-positive aspect-square bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">AC</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">4</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">5</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">6</button>
+<button class="button-positive aspect-square bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">×</button>
+<button class="button-positive aspect-square bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">÷</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">1</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">2</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">3</button>
+<button class="button-positive aspect-square bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">+</button>
+<button class="button-positive aspect-square bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">-</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">0</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface hover:bg-surface-bright">.</button>
+<button class="button-positive aspect-square bg-[#121212] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant italic font-serif text-lg">π</button>
+<button class="button-positive col-span-2 aspect-[2/1] bg-primary-container border border-tertiary/30 flex items-center justify-center rounded-lg font-button-label text-tertiary hover:bg-surface-bright shadow-[0_0_10px_rgba(0,230,57,0.2)]">EXE</button>
+</div>
+<!-- Navigation & Variable Panel -->
+<div class="col-span-4 flex flex-col gap-button-gap bg-surface-container-low p-4 rounded-xl border border-outline-variant/20">
+<div class="grid grid-cols-2 gap-button-gap">
+<button class="button-positive h-12 bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">Y=</button>
+<button class="button-positive h-12 bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface italic font-serif">x</button>
+<button class="button-positive h-12 bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">sin</button>
+<button class="button-positive h-12 bg-[#1A1A1A] flex items-center justify-center rounded-lg font-button-label text-on-surface-variant hover:bg-surface-bright">cos</button>
+</div>
+<!-- Directional D-Pad -->
+<div class="flex-1 flex items-center justify-center relative">
+<div class="grid grid-cols-3 grid-rows-3 gap-1 rotate-45">
+<div class="w-10 h-10"></div>
+<button class="button-positive w-10 h-10 bg-[#222] rounded-md flex items-center justify-center -rotate-45">
+<span class="material-symbols-outlined text-sm">keyboard_arrow_up</span>
+</button>
+<div class="w-10 h-10"></div>
+<button class="button-positive w-10 h-10 bg-[#222] rounded-md flex items-center justify-center -rotate-45">
+<span class="material-symbols-outlined text-sm">keyboard_arrow_left</span>
+</button>
+<div class="w-10 h-10 bg-surface shadow-inner rounded-full flex items-center justify-center">
+<div class="w-4 h-4 rounded-full bg-tertiary/10 border border-tertiary/20"></div>
+</div>
+<button class="button-positive w-10 h-10 bg-[#222] rounded-md flex items-center justify-center -rotate-45">
+<span class="material-symbols-outlined text-sm">keyboard_arrow_right</span>
+</button>
+<div class="w-10 h-10"></div>
+<button class="button-positive w-10 h-10 bg-[#222] rounded-md flex items-center justify-center -rotate-45">
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</button>
+<div class="w-10 h-10"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-button-gap">
+<button class="button-positive h-10 bg-[#1A1A1A] flex items-center justify-center rounded-lg gap-1 hover:bg-surface-bright">
+<span class="material-symbols-outlined text-sm">zoom_in</span>
+<span class="font-button-label text-[10px] uppercase">Zoom+</span>
+</button>
+<button class="button-positive h-10 bg-[#1A1A1A] flex items-center justify-center rounded-lg gap-1 hover:bg-surface-bright">
+<span class="material-symbols-outlined text-sm">zoom_out</span>
+<span class="font-button-label text-[10px] uppercase">Zoom-</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual Toggle Swtich (Mode Selector Overlay) -->
+<div class="fixed bottom-bezel-margin right-bezel-margin z-[120] flex items-center gap-4 bg-surface-container-high p-3 rounded-full border border-outline-variant/30 shadow-2xl">
+<span class="font-label-small text-label-small text-on-surface-variant uppercase tracking-widest pl-2">Radians</span>
+<div class="w-14 h-7 bg-surface-container-lowest rounded-full relative p-1 shadow-inner border border-outline-variant/10">
+<!-- Brushed Metal Toggle Handle -->
+<div class="absolute right-1 top-1 w-5 h-5 rounded-full bg-gradient-to-br from-gray-400 to-gray-700 shadow-md border border-white/10 flex items-center justify-center">
+<div class="w-1 h-3 bg-black/20 rounded-full"></div>
+</div>
+</div>
+<span class="font-label-small text-label-small text-tertiary font-bold uppercase tracking-widest">Degrees</span>
+</div>
+<!-- Hidden Map Context (Optional based on rules) -->
+<div class="hidden" data-location="Zurich" style=""></div>
+<!-- Decorative Image to ground the aesthetic -->
+<div class="fixed bottom-0 left-0 w-64 h-64 opacity-5 pointer-events-none z-0">
+<img class="w-full h-full object-cover grayscale brightness-50" data-alt="A macro photography style close-up of a premium technical instrument body. The surface features a rich carbon fiber weave under a matte dark grey resin coating. A soft green glow from an unseen LED illuminates the textured surface, highlighting the precision-engineered brushed metal edges. The atmosphere is professional, sleek, and high-fidelity, emphasizing technical luxury and aerospace-grade materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQn_ci8kyxTj4snqyKJQ1awGQ1TiuWJogZujeROTWIWu_tjsQjMFavOGXDlQc4u95ZceZFrA6Cw-hmRfHhuK_nNp5lUuOZjVG9ZAxqRrK40ZplVYPITFTaVSNqS6_YiaKXWUAhbDpMLFPvZwzHaosLFwOaDbX2p6FSTp8Se7iqidGRAIpfTaqwqmo9Zquua4XnjGdccf6XF7zT_VIDUajVM9tmPOxOrshWmruUPztyr03z8W3sqnNh2lVa6PCSYOOIUUaWOdhJWQ"/>
+</div>
+</body></html>

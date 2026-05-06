@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-primary-fixed-variant": "#474646",
+            "on-tertiary-fixed-variant": "#00530e",
+            "surface-bright": "#37393a",
+            "on-secondary-container": "#b7b5b4",
+            "tertiary-fixed": "#72ff70",
+            "on-error-container": "#ffdad6",
+            "surface-container-highest": "#333535",
+            "on-secondary-fixed-variant": "#474746",
+            "surface-tint": "#c8c6c5",
+            "inverse-on-surface": "#2f3131",
+            "on-secondary-fixed": "#1c1b1b",
+            "on-background": "#e2e2e2",
+            "secondary-fixed": "#e5e2e1",
+            "on-tertiary": "#003907",
+            "surface-variant": "#333535",
+            "outline": "#8e9192",
+            "surface": "#121414",
+            "on-tertiary-container": "#009220",
+            "surface-container-high": "#282a2b",
+            "on-surface": "#e2e2e2",
+            "surface-container": "#1e2020",
+            "secondary": "#c8c6c5",
+            "tertiary": "#00e639",
+            "on-secondary": "#313030",
+            "primary-fixed": "#e5e2e1",
+            "tertiary-container": "#001701",
+            "on-error": "#690005",
+            "primary-container": "#121212",
+            "inverse-surface": "#e2e2e2",
+            "inverse-primary": "#5f5e5e",
+            "outline-variant": "#444748",
+            "primary": "#c8c6c5",
+            "background": "#121414",
+            "on-primary-container": "#7e7d7d",
+            "surface-container-low": "#1a1c1c",
+            "on-surface-variant": "#c4c7c7",
+            "primary-fixed-dim": "#c8c6c5",
+            "tertiary-fixed-dim": "#00e639",
+            "on-tertiary-fixed": "#002203",
+            "surface-dim": "#121414",
+            "on-primary": "#313030",
+            "error-container": "#93000a",
+            "error": "#ffb4ab",
+            "secondary-container": "#474746",
+            "on-primary-fixed": "#1c1b1b",
+            "surface-container-lowest": "#0c0f0f"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "button-gap": "12px",
+            "unit": "4px",
+            "bezel-margin": "24px",
+            "display-padding": "20px",
+            "section-gutter": "32px"
+          },
+          "fontFamily": {
+            "button-label": ["Barlow"],
+            "label-small": ["Work Sans"],
+            "display-brand": ["Instrument Serif"],
+            "lcd-main": ["Barlow"]
+          },
+          "fontSize": {
+            "button-label": ["14px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+            "label-small": ["11px", {"lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+            "display-brand": ["24px", {"lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+            "lcd-main": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .brushed-metal {
+      background: linear-gradient(135deg, #2a2c2c 0%, #1e2020 50%, #161818 100%);
+      position: relative;
+    }
+    .brushed-metal::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 2px);
+      pointer-events: none;
+    }
+    .engraved-text {
+      text-shadow: -1px -1px 1px rgba(0,0,0,0.8), 1px 1px 1px rgba(255,255,255,0.1);
+      color: #121414;
+    }
+    .screw-head {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #555, #222);
+      box-shadow: inset 1px 1px 2px rgba(255,255,255,0.2), 1px 1px 3px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .screw-head::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 10%; right: 10%;
+      height: 2px;
+      background: #111;
+      transform: translateY(-50%) rotate(45deg);
+    }
+    .plate-border {
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.4), 0 10px 30px rgba(0,0,0,0.8);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-button-label">
+<!-- TopAppBar from JSON -->
+<header class="flex justify-between items-center w-full px-bezel-margin h-16 bg-surface-container-highest border-b border-outline-variant shadow-[inset_0px_-1px_0px_rgba(255,255,255,0.05)] shadow-md fixed top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface cursor-pointer" data-icon="menu">menu</span>
+<h1 class="font-display-brand text-display-brand tracking-widest text-on-surface">AETHERIS</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6">
+<span class="font-label-small text-label-small text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors">DASHBOARD</span>
+<span class="font-label-small text-label-small text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors">MODES</span>
+<span class="font-label-small text-label-small text-tertiary font-bold cursor-default">ABOUT</span>
+</nav>
+<span class="material-symbols-outlined text-on-surface cursor-pointer" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Side Drawer from JSON (Hidden on Mobile, but defined here for desktop shell integrity) -->
+<aside class="fixed inset-y-0 left-0 z-[100] flex flex-col p-display-padding gap-unit bg-surface-container border-r border-outline-variant shadow-2xl h-full w-80 rounded-r-none translate-x-[-100%] lg:translate-x-0 transition-transform duration-300">
+<div class="mb-8 px-4">
+<h2 class="font-display-brand text-display-brand text-on-surface">INSTRUMENT MODES</h2>
+</div>
+<nav class="flex flex-col gap-2">
+<div class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+<span class="font-button-label text-button-label">Basic</span>
+</div>
+<div class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+<span class="font-button-label text-button-label">Scientific</span>
+</div>
+<div class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-button-label text-button-label">Programmer</span>
+</div>
+<div class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+<span class="font-button-label text-button-label">Graphing</span>
+</div>
+<div class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="grid_on">grid_on</span>
+<span class="font-button-label text-button-label">Matrix</span>
+</div>
+<div class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-button-label text-button-label">Statistics</span>
+</div>
+<div class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="straighten">straighten</span>
+<span class="font-button-label text-button-label">Unit Converter</span>
+</div>
+<div class="flex items-center gap-button-gap bg-primary-container text-tertiary font-bold px-4 py-3 rounded-lg shadow-[inset_0px_2px_4px_rgba(0,0,0,0.6)] cursor-default">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+<span class="font-button-label text-button-label">About</span>
+</div>
+</nav>
+</aside>
+<!-- Main Content: The Engraved Metal Plate -->
+<main class="flex-grow flex items-center justify-center p-bezel-margin mt-16 lg:ml-80">
+<div class="relative w-full max-w-2xl aspect-[1.6/1] brushed-metal plate-border rounded-lg p-12 flex flex-col justify-between overflow-hidden">
+<!-- Screw Details -->
+<div class="absolute top-4 left-4 screw-head"></div>
+<div class="absolute top-4 right-4 screw-head"></div>
+<div class="absolute bottom-4 left-4 screw-head"></div>
+<div class="absolute bottom-4 right-4 screw-head"></div>
+<!-- Plate Content -->
+<div class="flex flex-col gap-section-gutter">
+<div>
+<p class="font-label-small text-label-small text-on-surface-variant/40 mb-1">INSTRUMENT MODEL</p>
+<h2 class="font-display-brand text-[80px] leading-none engraved-text tracking-tighter">Aetheris</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-4">
+<div>
+<p class="font-label-small text-label-small text-on-surface-variant/40">CHIEF ARCHITECT</p>
+<p class="font-display-brand text-2xl engraved-text italic">ADI BIN SHERAZ</p>
+</div>
+<div>
+<p class="font-label-small text-label-small text-on-surface-variant/40">DESIGN BUREAU</p>
+<p class="font-display-brand text-2xl engraved-text">Founder of ADIAGENCY</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div>
+<p class="font-label-small text-label-small text-on-surface-variant/40">COMMUNICATIONS</p>
+<p class="font-lcd-main text-[16px] engraved-text tracking-widest font-bold">ADI.BINSHERAZ@GMAIL.COM</p>
+</div>
+<div>
+<p class="font-label-small text-label-small text-on-surface-variant/40">TERMINAL ADDRESS</p>
+<p class="font-lcd-main text-[16px] engraved-text tracking-widest font-bold">https://adiagency.netlify.app</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Badge -->
+<div class="flex justify-between items-end border-t border-black/20 pt-8 mt-auto">
+<div class="flex gap-4 items-center">
+<div class="w-8 h-8 rounded-full border border-black/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs opacity-40" data-icon="verified">verified</span>
+</div>
+<p class="font-label-small text-[9px] text-on-surface-variant/30 max-w-[200px] leading-tight">
+            PRECISION CALIBRATED INSTRUMENT FOR HIGH-FIDELITY COMPUTATION. MANUFACTURED UNDER ADIAGENCY PROTOCOLS.
+          </p>
+</div>
+<div class="text-right">
+<p class="font-label-small text-[10px] text-on-surface-variant/40">SERIAL NO.</p>
+<p class="font-lcd-main text-[12px] opacity-40">ATH-2024-MOD-X</p>
+</div>
+</div>
+<!-- Aesthetic Engraving Overlay -->
+<div class="absolute inset-0 opacity-[0.02] pointer-events-none flex items-center justify-center overflow-hidden">
+<span class="font-display-brand text-[300px] rotate-12 select-none">AETHERIS</span>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-highest flex justify-around items-center px-4 z-50">
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+<span class="text-[10px] font-bold">CALC</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+<span class="text-[10px] font-bold">LAB</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined" data-icon="info" style="font-variation-settings: 'FILL' 1;">info</span>
+<span class="text-[10px] font-bold">ABOUT</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-bold">SETUP</span>
+</div>
+</nav>
+<!-- Contextual Background Image -->
+<div class="fixed inset-0 -z-10 bg-surface-dim">
+<div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-tertiary/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-on-surface/5 rounded-full blur-[100px]"></div>
+</div>
+</body></html>

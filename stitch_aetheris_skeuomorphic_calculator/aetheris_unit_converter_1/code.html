@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aetheris - Unit Converter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&amp;family=Barlow:wght@600;700&amp;family=Instrument+Serif&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#282a2b",
+                        "surface-container": "#1e2020",
+                        "on-tertiary": "#003907",
+                        "tertiary-fixed-dim": "#00e639",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary": "#313030",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#e2e2e2",
+                        "inverse-primary": "#5f5e5e",
+                        "primary": "#c8c6c5",
+                        "outline": "#8e9192",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-fixed": "#002203",
+                        "outline-variant": "#444748",
+                        "tertiary": "#00e639",
+                        "inverse-surface": "#e2e2e2",
+                        "secondary-container": "#474746",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-surface-variant": "#c4c7c7",
+                        "on-background": "#e2e2e2",
+                        "surface-container-highest": "#333535",
+                        "on-error": "#690005",
+                        "on-primary-container": "#7e7d7d",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-tint": "#c8c6c5",
+                        "surface": "#121414",
+                        "error-container": "#93000a",
+                        "tertiary-container": "#001701",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-primary": "#313030",
+                        "surface-variant": "#333535",
+                        "on-primary-fixed-variant": "#474646",
+                        "secondary": "#c8c6c5",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-tertiary-container": "#009220",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-bright": "#37393a",
+                        "primary-container": "#121212",
+                        "inverse-on-surface": "#2f3131",
+                        "on-secondary-fixed-variant": "#474746",
+                        "background": "#121414",
+                        "surface-container-low": "#1a1c1c",
+                        "surface-dim": "#121414",
+                        "primary-fixed": "#e5e2e1",
+                        "on-tertiary-fixed-variant": "#00530e",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#72ff70"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "section-gutter": "32px",
+                        "bezel-margin": "24px",
+                        "display-padding": "20px",
+                        "button-gap": "12px"
+                    },
+                    fontFamily: {
+                        "label-small": ["Work Sans", "sans-serif"],
+                        "lcd-main": ["Barlow", "sans-serif"],
+                        "display-brand": ["Instrument Serif", "serif"],
+                        "button-label": ["Barlow", "sans-serif"]
+                    },
+                    fontSize: {
+                        "label-small": ["11px", { lineHeight: "14px", letterSpacing: "0.1em", fontWeight: "500" }],
+                        "lcd-main": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "display-brand": ["24px", { lineHeight: "32px", letterSpacing: "0.05em", fontWeight: "400" }],
+                        "button-label": ["14px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "700" }]
+                    },
+                    boxShadow: {
+                        'btn-up': 'inset 1px 1px 0px 0px rgba(255,255,255,0.1), 2px 2px 4px 0px rgba(0,0,0,0.6)',
+                        'btn-down': 'inset 2px 2px 4px 0px rgba(0,0,0,0.6), inset -1px -1px 1px 0px rgba(255,255,255,0.05)',
+                        'lcd-recessed': 'inset 4px 4px 8px rgba(0,0,0,0.8), inset -2px -2px 4px rgba(255,255,255,0.05)',
+                        'tertiary-glow': '0 0 8px rgba(0,230,57,0.3)',
+                    },
+                    backgroundImage: {
+                        'metal-texture': 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.03%22/%3E%3C/svg%3E")',
+                        'lcd-scanlines': 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.1) 1px, rgba(0,0,0,0.1) 2px)'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .lcd-text {
+            text-shadow: 0 0 8px rgba(0, 230, 57, 0.3);
+        }
+        .btn-skeuo {
+            transition: transform 0.05s ease-in-out, box-shadow 0.05s ease-in-out;
+        }
+        .btn-skeuo:active {
+            transform: translateY(1px);
+            box-shadow: inset 2px 2px 4px 0px rgba(0,0,0,0.6), inset -1px -1px 1px 0px rgba(255,255,255,0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-label-small overflow-x-hidden relative">
+<!-- Noise Overlay -->
+<div class="fixed inset-0 pointer-events-none opacity-30 mix-blend-overlay bg-metal-texture z-0"></div>
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-bezel-margin h-16 bg-surface shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.05)] docked full-width top-0 z-40 relative">
+<button class="text-on-surface-variant hover:text-tertiary transition-colors scale-95 duration-100 flex items-center justify-center p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings_applications</span>
+</button>
+<div class="font-display-brand text-display-brand text-on-surface tracking-widest uppercase">
+            Aetheris
+        </div>
+<button class="text-on-surface-variant hover:text-tertiary transition-colors flex items-center justify-center p-2 rounded-full">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+</header>
+<div class="flex flex-1 overflow-hidden relative z-10 w-full max-w-7xl mx-auto">
+<!-- NavigationDrawer (Web) -->
+<nav class="hidden md:flex flex-col h-full py-bezel-margin gap-button-gap bg-surface-container border-r border-outline-variant shadow-2xl h-full w-80 rounded-r-xl shrink-0 z-30 relative">
+<div class="px-6 pb-4">
+<h2 class="font-display-brand text-display-brand text-tertiary">Aetheris OS v1.0</h2>
+</div>
+<div class="flex-1 overflow-y-auto px-4 flex flex-col gap-2">
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">function</span>
+<span class="font-button-label text-button-label">Scientific</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-button-label text-button-label">Financial</span>
+</a>
+<a class="flex items-center gap-4 bg-tertiary-container text-on-tertiary-container font-bold rounded-lg m-2 px-4 py-3 inner-shadow-md" href="#">
+<span class="material-symbols-outlined">straighten</span>
+<span class="font-button-label text-button-label">Unit Converter</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">science</span>
+<span class="font-button-label text-button-label">Constants</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-highest rounded-lg m-2 px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-button-label text-button-label">History</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col px-bezel-margin py-bezel-margin gap-section-gutter overflow-y-auto pb-32 md:pb-bezel-margin">
+<!-- Recessed LCD Display -->
+<section class="relative w-full rounded-xl bg-[#080808] shadow-lcd-recessed p-display-padding overflow-hidden border border-[#1a1a1a]">
+<!-- Glare overlay -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-10"></div>
+<!-- Scanlines -->
+<div class="absolute inset-0 bg-lcd-scanlines opacity-5 pointer-events-none z-0"></div>
+<div class="relative z-20 flex flex-col gap-6">
+<!-- Source Row -->
+<div class="flex flex-col items-end">
+<div class="w-full flex justify-between items-end mb-1">
+<span class="font-label-small text-label-small text-on-surface-variant tracking-widest uppercase">Source (Kilometers)</span>
+<span class="h-2 w-2 rounded-full bg-tertiary shadow-tertiary-glow"></span>
+</div>
+<div class="font-lcd-main text-lcd-main text-tertiary lcd-text tracking-tight w-full text-right truncate">
+                            1,042.85
+                        </div>
+</div>
+<div class="w-full h-px bg-tertiary/20"></div>
+<!-- Target Row -->
+<div class="flex flex-col items-end">
+<div class="w-full flex justify-between items-end mb-1">
+<span class="font-label-small text-label-small text-on-surface-variant tracking-widest uppercase opacity-70">Target (Miles)</span>
+</div>
+<div class="font-lcd-main text-lcd-main text-tertiary/70 lcd-text tracking-tight w-full text-right truncate">
+                            647.99
+                        </div>
+</div>
+</div>
+</section>
+<!-- Controls Chassis -->
+<section class="flex flex-col gap-6">
+<!-- Toggles & Selectors Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-button-gap">
+<!-- Mode Selector -->
+<div class="col-span-2 md:col-span-1 bg-surface-container-high rounded-lg p-2 shadow-btn-up flex flex-col gap-2 border border-outline-variant/30">
+<span class="font-label-small text-label-small text-on-surface-variant px-2 uppercase">Category</span>
+<div class="relative bg-surface rounded p-1 shadow-lcd-recessed flex items-center justify-between cursor-pointer group">
+<span class="font-button-label text-button-label text-on-surface px-2">Length</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-tertiary transition-colors">swap_vert</span>
+</div>
+</div>
+<!-- Source Unit -->
+<div class="col-span-2 md:col-span-1 bg-surface-container-high rounded-lg p-2 shadow-btn-up flex flex-col gap-2 border border-outline-variant/30">
+<span class="font-label-small text-label-small text-on-surface-variant px-2 uppercase">From</span>
+<div class="relative bg-surface rounded p-1 shadow-lcd-recessed flex items-center justify-between cursor-pointer group">
+<span class="font-button-label text-button-label text-on-surface px-2">Kilometers</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-tertiary transition-colors">expand_more</span>
+</div>
+</div>
+<!-- Target Unit -->
+<div class="col-span-2 md:col-span-1 bg-surface-container-high rounded-lg p-2 shadow-btn-up flex flex-col gap-2 border border-outline-variant/30">
+<span class="font-label-small text-label-small text-on-surface-variant px-2 uppercase">To</span>
+<div class="relative bg-surface rounded p-1 shadow-lcd-recessed flex items-center justify-between cursor-pointer group">
+<span class="font-button-label text-button-label text-on-surface px-2">Miles</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-tertiary transition-colors">expand_more</span>
+</div>
+</div>
+<!-- Precision Slider -->
+<div class="col-span-2 md:col-span-1 bg-surface-container-high rounded-lg p-2 shadow-btn-up flex flex-col justify-center gap-2 border border-outline-variant/30">
+<span class="font-label-small text-label-small text-on-surface-variant px-2 uppercase text-center">Decimals (2)</span>
+<div class="relative w-full h-4 bg-surface rounded-full shadow-lcd-recessed mx-auto w-4/5 flex items-center">
+<div class="absolute left-[40%] w-4 h-6 bg-secondary-fixed rounded shadow-md border border-outline-variant/50 cursor-grab active:cursor-grabbing"></div>
+</div>
+</div>
+</div>
+<!-- Number Pad Matrix -->
+<div class="grid grid-cols-4 gap-button-gap max-w-lg mx-auto w-full">
+<!-- Row 1 -->
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">7</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">8</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">9</button>
+<button class="bg-[#1A1A1A] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-error font-button-label text-button-label">DEL</button>
+<!-- Row 2 -->
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">4</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">5</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">6</button>
+<button class="bg-[#1A1A1A] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-error font-button-label text-button-label">AC</button>
+<!-- Row 3 -->
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">1</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">2</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">3</button>
+<button class="bg-[#1A1A1A] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface-variant font-button-label text-button-label">±</button>
+<!-- Row 4 -->
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label col-span-2">0</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-on-surface font-button-label text-button-label">.</button>
+<button class="bg-[#121212] shadow-btn-up rounded-lg py-4 flex items-center justify-center btn-skeuo border border-outline-variant/20 text-tertiary font-button-label text-button-label shadow-[inset_1px_1px_0_rgba(255,255,255,0.1),2px_2px_4px_rgba(0,0,0,0.6),0_0_8px_rgba(0,230,57,0.2)]">=</button>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-bezel-margin pb-6 pt-2 bg-surface shadow-[0_-4px_10px_rgba(0,0,0,0.5)] docked full-width bottom-0 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-tertiary bg-surface-container-highest rounded-xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_rgba(255,255,255,0.1)] translate-y-px px-4 py-2 hover:bg-surface-container-high transform translate-y-0.5 duration-75" href="#">
+<span class="material-symbols-outlined">calculate</span>
+<span class="font-button-label text-button-label">MATH</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-button-label text-button-label">STATS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-button-label text-button-label">PROG</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+<span class="font-button-label text-button-label">GRAPH</span>
+</a>
+</nav>
+</body></html>

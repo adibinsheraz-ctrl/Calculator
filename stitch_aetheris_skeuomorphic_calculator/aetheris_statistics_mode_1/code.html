@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aetheris - Statistics Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&amp;family=Instrument+Serif&amp;family=Work+Sans:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#282a2b",
+                      "surface-container": "#1e2020",
+                      "on-tertiary": "#003907",
+                      "tertiary-fixed-dim": "#00e639",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-secondary": "#313030",
+                      "on-error-container": "#ffdad6",
+                      "on-surface": "#e2e2e2",
+                      "inverse-primary": "#5f5e5e",
+                      "primary": "#c8c6c5",
+                      "outline": "#8e9192",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "on-tertiary-fixed": "#002203",
+                      "outline-variant": "#444748",
+                      "tertiary": "#00e639",
+                      "inverse-surface": "#e2e2e2",
+                      "secondary-container": "#474746",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-surface-variant": "#c4c7c7",
+                      "on-background": "#e2e2e2",
+                      "surface-container-highest": "#333535",
+                      "on-error": "#690005",
+                      "on-primary-container": "#7e7d7d",
+                      "on-primary-fixed": "#1c1b1b",
+                      "surface-tint": "#c8c6c5",
+                      "surface": "#121414",
+                      "error-container": "#93000a",
+                      "tertiary-container": "#001701",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "on-primary": "#313030",
+                      "surface-variant": "#333535",
+                      "on-primary-fixed-variant": "#474646",
+                      "secondary": "#c8c6c5",
+                      "surface-container-lowest": "#0c0f0f",
+                      "on-tertiary-container": "#009220",
+                      "on-secondary-container": "#b7b5b4",
+                      "surface-bright": "#37393a",
+                      "primary-container": "#121212",
+                      "inverse-on-surface": "#2f3131",
+                      "on-secondary-fixed-variant": "#474746",
+                      "background": "#121414",
+                      "surface-container-low": "#1a1c1c",
+                      "surface-dim": "#121414",
+                      "primary-fixed": "#e5e2e1",
+                      "on-tertiary-fixed-variant": "#00530e",
+                      "error": "#ffb4ab",
+                      "tertiary-fixed": "#72ff70"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "section-gutter": "32px",
+                      "bezel-margin": "24px",
+                      "display-padding": "20px",
+                      "button-gap": "12px"
+              },
+              "fontFamily": {
+                      "label-small": [
+                              "Work Sans", "sans-serif"
+                      ],
+                      "lcd-main": [
+                              "Barlow", "sans-serif"
+                      ],
+                      "display-brand": [
+                              "Instrument Serif", "serif"
+                      ],
+                      "button-label": [
+                              "Barlow", "sans-serif"
+                      ]
+              },
+              "fontSize": {
+                      "label-small": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "lcd-main": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-brand": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "button-label": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Barlow', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Skeuomorphic Utility Classes */
+        .carbon-texture {
+            background-color: #1a1c1c;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.04"/></svg>');
+        }
+        
+        .lcd-glow {
+            text-shadow: 0 0 6px rgba(0, 230, 57, 0.4), 0 0 12px rgba(0, 230, 57, 0.2);
+        }
+        
+        .lcd-scanlines {
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+        
+        .lcd-glare {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 45%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
+
+        .btn-physical {
+            box-shadow: inset 1px 1px 1px 0px rgba(255,255,255,0.08), inset -1px -1px 3px 0px rgba(0,0,0,0.8), 2px 3px 5px 0px rgba(0,0,0,0.5);
+        }
+        
+        .btn-physical:active {
+            box-shadow: inset 2px 2px 4px 0px rgba(0,0,0,0.7), inset -1px -1px 1px 0px rgba(255,255,255,0.05);
+            transform: translateY(1px) translateX(1px);
+        }
+
+        .btn-action {
+            box-shadow: inset 1px 1px 1px 0px rgba(255,255,255,0.1), inset -1px -1px 2px 0px rgba(0,0,0,0.6), 2px 2px 4px 0px rgba(0,0,0,0.4), 0 0 12px rgba(0, 230, 57, 0.15);
+        }
+        
+        .btn-action:active {
+             box-shadow: inset 2px 2px 4px 0px rgba(0,0,0,0.8), inset -1px -1px 1px 0px rgba(255,255,255,0.1), 0 0 8px rgba(0, 230, 57, 0.1);
+             transform: translateY(1px) translateX(1px);
+        }
+
+        /* Custom Scrollbar for LCD */
+        .lcd-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .lcd-scroll::-webkit-scrollbar-track {
+            background: rgba(0, 230, 57, 0.05); 
+        }
+        .lcd-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 230, 57, 0.3); 
+            border-radius: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-label-small overflow-x-hidden selection:bg-tertiary selection:text-tertiary-container">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-bezel-margin h-16 bg-surface shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.05)] sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<button class="text-on-surface hover:text-tertiary transition-colors duration-100 active:scale-95 flex items-center justify-center">
+<span class="material-symbols-outlined">settings_applications</span>
+</button>
+<h1 class="font-display-brand text-display-brand text-on-surface tracking-widest uppercase">Aetheris</h1>
+</div>
+<!-- Desktop Navigation (Hidden on Mobile) -->
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="text-on-surface-variant hover:text-tertiary transition-colors font-button-label text-button-label flex items-center gap-2 h-full border-b-2 border-transparent" href="#">
+                MATH
+            </a>
+<a class="text-tertiary transition-colors font-button-label text-button-label flex items-center gap-2 h-full border-b-2 border-tertiary relative" href="#">
+                STATS
+            </a>
+<a class="text-on-surface-variant hover:text-tertiary transition-colors font-button-label text-button-label flex items-center gap-2 h-full border-b-2 border-transparent" href="#">
+                PROG
+            </a>
+<a class="text-on-surface-variant hover:text-tertiary transition-colors font-button-label text-button-label flex items-center gap-2 h-full border-b-2 border-transparent" href="#">
+                GRAPH
+            </a>
+</nav>
+<div class="flex items-center gap-4">
+<!-- Simulated Status LED -->
+<div class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(0,230,57,0.8)]"></div>
+<button class="text-on-surface hover:text-tertiary transition-colors duration-100 active:scale-95 flex items-center justify-center">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+</div>
+</header>
+<!-- Main Instrument Canvas -->
+<main class="flex-1 flex justify-center items-start p-4 md:p-bezel-margin mb-24 md:mb-0">
+<!-- The Device Chassis -->
+<div class="w-full max-w-3xl rounded-2xl carbon-texture border border-surface-container-high shadow-2xl p-6 md:p-8 flex flex-col" data-alt="A meticulously rendered close-up of a high-end scientific instrument interface. The casing is constructed from matte black carbon fiber with a subtle, granular texture that implies rugged durability. The surface absorbs light, creating a deep, premium dark-mode aesthetic. Delicate hints of brushed titanium edges reflect minimal ambient light, grounding the device in physical reality. The overall mood is precise, professional, and tactile.">
+<!-- LCD Display Area (Negative Elevation) -->
+<div class="w-full h-80 bg-[#060707] rounded-lg border border-surface shadow-[inset_4px_4px_16px_rgba(0,0,0,0.95),inset_-2px_-2px_4px_rgba(255,255,255,0.02)] relative overflow-hidden flex flex-col p-display-padding mb-section-gutter">
+<!-- Optical Overlays -->
+<div class="absolute inset-0 lcd-scanlines z-10"></div>
+<div class="absolute inset-0 lcd-glare z-20"></div>
+<!-- Screen Header -->
+<div class="flex justify-between items-center border-b border-tertiary/10 pb-2 mb-4 z-30 font-label-small text-label-small text-tertiary lcd-glow opacity-80">
+<span class="uppercase tracking-widest">STAT // 1-VAR ANALYSIS</span>
+<span>MEM: 94%</span>
+</div>
+<!-- Screen Content Grid -->
+<div class="flex-1 grid grid-cols-12 gap-6 z-30 h-full min-h-0">
+<!-- Data List Pane (Xi) -->
+<div class="col-span-5 border-r border-tertiary/10 pr-4 flex flex-col h-full">
+<div class="font-button-label text-button-label text-tertiary/60 mb-2 uppercase tracking-wide">Data List [L1]</div>
+<div class="flex-1 overflow-y-auto lcd-scroll pr-2 space-y-1 font-lcd-main text-[32px] leading-none text-tertiary lcd-glow text-right">
+<div class="text-tertiary/40">1 : <span class="pl-4">124.5</span></div>
+<div class="text-tertiary/40">2 : <span class="pl-4">126.8</span></div>
+<div class="text-tertiary">3 : <span class="pl-4">125.1</span><span class="animate-pulse opacity-70">_</span></div>
+<div class="text-tertiary/20">4 : <span class="pl-4">0.0</span></div>
+<div class="text-tertiary/20">5 : <span class="pl-4">0.0</span></div>
+</div>
+</div>
+<!-- Calculated Results Pane -->
+<div class="col-span-7 pl-2 flex flex-col justify-center gap-6">
+<div class="flex flex-col relative group">
+<span class="font-button-label text-button-label text-tertiary/60 uppercase tracking-wide absolute -top-4 left-0">Mean (μ)</span>
+<div class="font-lcd-main text-[48px] leading-none text-tertiary lcd-glow text-right w-full border-b border-tertiary/5 pb-1">
+                                125.46
+                            </div>
+</div>
+<div class="flex flex-col relative group">
+<span class="font-button-label text-button-label text-tertiary/60 uppercase tracking-wide absolute -top-4 left-0">Std Dev (σ)</span>
+<div class="font-lcd-main text-[48px] leading-none text-tertiary lcd-glow text-right w-full border-b border-tertiary/5 pb-1">
+                                0.957
+                            </div>
+</div>
+<div class="flex flex-col relative group">
+<span class="font-button-label text-button-label text-tertiary/60 uppercase tracking-wide absolute -top-4 left-0">Variance (σ²)</span>
+<div class="font-lcd-main text-[48px] leading-none text-tertiary lcd-glow text-right w-full">
+                                0.916
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Physical Controls Section -->
+<div class="flex flex-col gap-button-gap">
+<!-- Function Row (Specialized Matte Finish) -->
+<div class="grid grid-cols-4 gap-button-gap mb-2">
+<button class="bg-[#181a1a] rounded h-10 flex items-center justify-center font-button-label text-button-label text-on-surface uppercase btn-physical transition-all duration-75 select-none border border-surface-container-high/50">
+                        DATA
+                    </button>
+<button class="bg-[#181a1a] rounded h-10 flex items-center justify-center font-button-label text-button-label text-tertiary shadow-[0_0_8px_rgba(0,230,57,0.1)] uppercase btn-physical transition-all duration-75 select-none border border-tertiary/20">
+                        STAT
+                    </button>
+<button class="bg-[#181a1a] rounded h-10 flex items-center justify-center font-button-label text-button-label text-on-surface uppercase btn-physical transition-all duration-75 select-none border border-surface-container-high/50">
+                        REG
+                    </button>
+<button class="bg-[#181a1a] rounded h-10 flex items-center justify-center font-button-label text-button-label text-on-surface uppercase btn-physical transition-all duration-75 select-none border border-surface-container-high/50">
+                        DIST
+                    </button>
+</div>
+<!-- Numeric Keypad Matrix -->
+<div class="grid grid-cols-4 gap-button-gap">
+<!-- Row 1 -->
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">7</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">8</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">9</button>
+<button class="bg-[#241a1a] rounded-lg h-14 flex items-center justify-center font-button-label text-button-label text-[#ffb4ab] btn-physical transition-all duration-75 select-none border border-error/10 uppercase">DEL</button>
+<!-- Row 2 -->
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">4</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">5</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">6</button>
+<button class="bg-[#241a1a] rounded-lg h-14 flex items-center justify-center font-button-label text-button-label text-[#ffb4ab] btn-physical transition-all duration-75 select-none border border-error/10 uppercase">AC</button>
+<!-- Row 3 -->
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">1</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">2</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">3</button>
+<button class="bg-surface-container-high rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface-variant btn-physical transition-all duration-75 select-none border border-surface-container-low">×</button>
+<!-- Row 4 -->
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">0</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[22px] font-normal text-on-surface btn-physical transition-all duration-75 select-none border border-surface-container-low">.</button>
+<button class="bg-surface-container-high rounded-lg h-14 flex items-center justify-center font-button-label text-button-label text-on-surface-variant btn-physical transition-all duration-75 select-none border border-surface-container-low uppercase">EXP</button>
+<button class="bg-primary-container rounded-lg h-14 flex items-center justify-center font-lcd-main text-[26px] font-normal text-tertiary btn-action transition-all duration-75 select-none border border-tertiary/20">=</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-bezel-margin pb-6 pt-2 bg-surface border-t border-outline-variant shadow-[0_-4px_10px_rgba(0,0,0,0.5)] md:hidden">
+<!-- MATH (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] rounded-xl hover:bg-surface-container-high transition-colors font-button-label text-button-label">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">calculate</span>
+            MATH
+        </button>
+<!-- STATS (Active) -->
+<button class="flex flex-col items-center justify-center text-tertiary bg-surface-container-highest rounded-xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_rgba(255,255,255,0.1)] translate-y-px px-4 py-2 font-button-label text-button-label transform duration-75">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">analytics</span>
+            STATS
+        </button>
+<!-- PROG (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] rounded-xl hover:bg-surface-container-high transition-colors font-button-label text-button-label">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">terminal</span>
+            PROG
+        </button>
+<!-- GRAPH (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 shadow-[2px_2px_0_rgba(255,255,255,0.05),-1px_-1px_2px_rgba(0,0,0,0.8)] rounded-xl hover:bg-surface-container-high transition-colors font-button-label text-button-label">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">show_chart</span>
+            GRAPH
+        </button>
+</nav>
+</body></html>

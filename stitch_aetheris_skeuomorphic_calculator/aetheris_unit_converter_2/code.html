@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.skeuo-pressed {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 255, 255, 0.05);
+    transform: translatey(1px)
+    }
+.skeuo-button {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 8px rgba(0, 0, 0, 0.4)
+    }
+.lcd-recess {
+    box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.9), inset 0 -2px 4px rgba(255, 255, 255, 0.02)
+    }
+.lcd-glow {
+    text-shadow: 0 0 8px rgba(0, 230, 57, 0.4)
+    }
+.scanline {
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px
+    }
+.carbon-grain {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAsfo1tJIy3woKqp9PlS2B4peg9G3wJvPQdb4V_FatzOvw5wC15sZ3rPjlFPagdkacnj2HOW9hBHyUUkzLa1FBU2m-XqkvA3wgv6VXmCf93dEDWCIG9pNrLsVSf2KU6enA2JhLfio4L-2Lc5KLB8PtrpNua2lGSaKrajFdKam6YFy009sixDJ_xXwXA8rPmJ3gP296Ry0EhFloi73JoBvla6_8ZK7BoQ_lAlWxpZGY6me6zsXyOMbFXAUNrjU2GFArJOW7yafIGdQ);
+    background-blend-mode: overlay
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#333535",
+                      "surface-container": "#1e2020",
+                      "surface": "#121414",
+                      "surface-dim": "#121414",
+                      "primary-fixed": "#e5e2e1",
+                      "primary-container": "#121212",
+                      "inverse-primary": "#5f5e5e",
+                      "on-primary-fixed": "#1c1b1b",
+                      "on-tertiary-fixed": "#002203",
+                      "surface-container-high": "#282a2b",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-secondary-container": "#b7b5b4",
+                      "on-error": "#690005",
+                      "tertiary": "#00e639",
+                      "outline": "#8e9192",
+                      "on-surface-variant": "#c4c7c7",
+                      "on-surface": "#e2e2e2",
+                      "on-secondary": "#313030",
+                      "on-primary": "#313030",
+                      "on-tertiary": "#003907",
+                      "on-primary-container": "#7e7d7d",
+                      "error": "#ffb4ab",
+                      "inverse-surface": "#e2e2e2",
+                      "surface-bright": "#37393a",
+                      "surface-tint": "#c8c6c5",
+                      "tertiary-container": "#001701",
+                      "surface-variant": "#333535",
+                      "secondary-container": "#474746",
+                      "on-tertiary-fixed-variant": "#00530e",
+                      "on-primary-fixed-variant": "#474646",
+                      "error-container": "#93000a",
+                      "on-error-container": "#ffdad6",
+                      "background": "#121414",
+                      "surface-container-low": "#1a1c1c",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "inverse-on-surface": "#2f3131",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-background": "#e2e2e2",
+                      "tertiary-fixed": "#72ff70",
+                      "on-tertiary-container": "#009220",
+                      "secondary": "#c8c6c5",
+                      "surface-container-lowest": "#0c0f0f",
+                      "on-secondary-fixed-variant": "#474746",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "outline-variant": "#444748",
+                      "primary": "#c8c6c5",
+                      "tertiary-fixed-dim": "#00e639"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "section-gutter": "32px",
+                      "display-padding": "20px",
+                      "button-gap": "12px",
+                      "bezel-margin": "24px"
+              },
+              "fontFamily": {
+                      "display-brand": ["Instrument Serif"],
+                      "button-label": ["Barlow"],
+                      "lcd-main": ["Barlow"],
+                      "label-small": ["Work Sans"]
+              },
+              "fontSize": {
+                      "display-brand": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                      "button-label": ["14px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                      "lcd-main": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                      "label-small": ["11px", { "lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "500" }]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-button-label">
+<!-- TopAppBar -->
+<header class="bg-surface-container-highest border-b border-outline-variant shadow-md flex justify-between items-center w-full px-bezel-margin h-16 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<button class="text-on-surface hover:bg-surface-bright p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-brand text-display-brand tracking-widest text-on-surface uppercase">AETHERIS</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-small text-label-small text-on-surface-variant uppercase tracking-widest">System Status: Nominal</span>
+<button class="text-on-surface hover:bg-surface-bright p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="fixed inset-y-0 left-0 z-[100] flex flex-col p-display-padding gap-unit bg-surface-container border-r border-outline-variant h-full w-80 shadow-2xl hidden md:flex">
+<div class="mb-8 px-4">
+<h2 class="font-display-brand text-display-brand text-on-surface">INSTRUMENT MODES</h2>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calculate">calculate</span>
+<span class="font-button-label text-button-label">Basic</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+<span class="font-button-label text-button-label">Scientific</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-button-label text-button-label">Programmer</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+<span class="font-button-label text-button-label">Graphing</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="grid_on">grid_on</span>
+<span class="font-button-label text-button-label">Matrix</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-button-label text-button-label">Statistics</span>
+</a>
+<a class="flex items-center gap-button-gap bg-primary-container text-tertiary font-bold px-4 py-3 rounded-lg shadow-[inset_0px_2px_4px_rgba(0,0,0,0.6)]" href="#">
+<span class="material-symbols-outlined" data-icon="straighten">straighten</span>
+<span class="font-button-label text-button-label">Unit Converter</span>
+</a>
+<a class="flex items-center gap-button-gap text-on-surface-variant px-4 py-3 hover:bg-surface-bright transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+<span class="font-button-label text-button-label">About</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-80 p-bezel-margin bg-surface carbon-grain">
+<div class="max-w-4xl mx-auto flex flex-col gap-section-gutter">
+<!-- Dual LCD Displays -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-button-gap relative">
+<!-- Glass glare effect -->
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent z-10 rounded-lg"></div>
+<!-- Input Display -->
+<div class="bg-[#080808] lcd-recess rounded-lg p-display-padding relative overflow-hidden h-40 flex flex-col justify-end border border-white/5">
+<div class="scanline absolute inset-0 opacity-10 pointer-events-none"></div>
+<span class="absolute top-4 left-4 font-label-small text-label-small text-tertiary/60 uppercase tracking-widest">SOURCE INPUT</span>
+<div class="flex justify-between items-baseline">
+<span class="font-lcd-main text-lcd-main text-tertiary lcd-glow">1,240.50</span>
+<span class="font-display-brand text-xl text-tertiary/80">METERS</span>
+</div>
+</div>
+<!-- Output Display -->
+<div class="bg-[#080808] lcd-recess rounded-lg p-display-padding relative overflow-hidden h-40 flex flex-col justify-end border border-white/5">
+<div class="scanline absolute inset-0 opacity-10 pointer-events-none"></div>
+<span class="absolute top-4 left-4 font-label-small text-label-small text-tertiary/60 uppercase tracking-widest">CONVERTED VALUE</span>
+<div class="flex justify-between items-baseline">
+<span class="font-lcd-main text-lcd-main text-tertiary lcd-glow">4,070.00</span>
+<span class="font-display-brand text-xl text-tertiary/80">FEET</span>
+</div>
+</div>
+</div>
+<!-- Conversion Controls -->
+<div class="bg-surface-container-high rounded-xl p-8 shadow-2xl border border-outline-variant/30 flex flex-col gap-8">
+<!-- Category Tabs (Skeuomorphic) -->
+<div class="flex flex-wrap gap-button-gap">
+<button class="skeuo-pressed bg-primary-container text-tertiary px-6 py-2 rounded font-button-label text-button-label border border-tertiary/20">Length</button>
+<button class="skeuo-button bg-surface-container text-on-surface-variant px-6 py-2 rounded font-button-label text-button-label hover:text-on-surface transition-all">Weight</button>
+<button class="skeuo-button bg-surface-container text-on-surface-variant px-6 py-2 rounded font-button-label text-button-label hover:text-on-surface transition-all">Temperature</button>
+<button class="skeuo-button bg-surface-container text-on-surface-variant px-6 py-2 rounded font-button-label text-button-label hover:text-on-surface transition-all">Currency</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-section-gutter">
+<!-- Left Panel: Input Configuration -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-small text-label-small text-on-surface-variant uppercase">Input Precision Slider</label>
+<div class="bg-surface-container-lowest h-10 rounded-full p-1 flex items-center relative shadow-inner">
+<div class="w-1/2 h-full bg-gradient-to-r from-tertiary/20 to-tertiary/40 rounded-full border border-tertiary/30"></div>
+<div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-[#e5e2e1] rounded-full shadow-lg border border-black/20 cursor-pointer"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-small text-label-small text-on-surface-variant uppercase">From Unit</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant text-on-surface rounded-lg h-12 px-4 appearance-none focus:outline-none focus:border-tertiary transition-colors skeuo-button">
+<option>Meters (m)</option>
+<option>Kilometers (km)</option>
+<option>Centimeters (cm)</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-3 text-on-surface-variant pointer-events-none" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+</div>
+<!-- Right Panel: Output Configuration -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-small text-label-small text-on-surface-variant uppercase">Conversion Intensity</label>
+<div class="flex items-center gap-4">
+<span class="font-label-small text-label-small">LOW</span>
+<div class="flex-1 h-2 bg-surface-container-lowest rounded-full overflow-hidden flex items-center">
+<div class="w-3/4 h-full bg-tertiary shadow-[0_0_10px_rgba(0,230,57,0.5)]"></div>
+</div>
+<span class="font-label-small text-label-small">HIGH</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-small text-label-small text-on-surface-variant uppercase">To Unit</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-outline-variant text-on-surface rounded-lg h-12 px-4 appearance-none focus:outline-none focus:border-tertiary transition-colors skeuo-button">
+<option>Feet (ft)</option>
+<option>Inches (in)</option>
+<option>Yards (yd)</option>
+<option>Miles (mi)</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-3 text-on-surface-variant pointer-events-none" data-icon="unfold_more">unfold_more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Number Pad Grid -->
+<div class="grid grid-cols-4 gap-button-gap mb-12">
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">7</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">8</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">9</button>
+<button class="skeuo-button bg-surface-container-high h-20 rounded-lg font-button-label text-button-label text-error active:translate-y-px active:shadow-inner">AC</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">4</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">5</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">6</button>
+<button class="skeuo-button bg-surface-container-high h-20 rounded-lg font-button-label text-button-label text-on-surface-variant active:translate-y-px active:shadow-inner">DEL</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">1</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">2</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">3</button>
+<button class="skeuo-button bg-surface-container-high h-20 rounded-lg font-button-label text-button-label text-on-surface-variant active:translate-y-px active:shadow-inner">±</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">0</button>
+<button class="skeuo-button bg-[#1A1A1A] h-20 rounded-lg font-lcd-main text-2xl text-on-surface active:translate-y-px active:shadow-inner">.</button>
+<button class="skeuo-button bg-primary-container border border-tertiary/50 col-span-2 h-20 rounded-lg font-button-label text-button-label text-tertiary shadow-[0_0_15px_rgba(0,230,57,0.1)] active:translate-y-px active:shadow-inner">CONVERT</button>
+</div>
+<!-- History Section (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-button-gap">
+<div class="md:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/30">
+<h3 class="font-label-small text-label-small text-on-surface-variant uppercase mb-4">Recent Transformations</h3>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="text-sm font-button-label">45.0 kg → 99.2 lb</span>
+<span class="text-xs text-on-surface-variant">2m ago</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="text-sm font-button-label">21.0 °C → 69.8 °F</span>
+<span class="text-xs text-on-surface-variant">15m ago</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-sm font-button-label">100.0 USD → 92.5 EUR</span>
+<span class="text-xs text-on-surface-variant">1h ago</span>
+</div>
+</div>
+</div>
+<div class="bg-primary-container rounded-xl p-6 border border-tertiary/20 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-tertiary text-4xl mb-4" data-icon="update">update</span>
+<p class="font-label-small text-label-small text-tertiary mb-1">AUTO-SYNC</p>
+<p class="text-xs text-on-surface-variant">Rates updated 3 seconds ago</p>
+</div>
+</div>
+<!-- Secondary Graphic / Aesthetics -->
+<div class="relative h-64 w-full rounded-2xl overflow-hidden border border-outline-variant/30 group">
+<img alt="Scientific Instrument Close-up" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" data-alt="A highly detailed, macro close-up of a precision scientific instrument's internal circuit board and brushed metal gears. The lighting is moody and dramatic, with deep shadows and vibrant emerald green LED indicators casting a technological glow. The color palette is dominated by matte blacks, dark charcoals, and sharp neon green accents. The aesthetic is industrial, professional, and sophisticated, emphasizing technical luxury and aerospace engineering precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByTTLOpMuwIa9pii93gjTRXBtB3eFNSDwpxs4v5YFGloV3YfjMh4qGoovgq8fgo3bFvM0GaVeCjMpU8TOwZicOpYZo4ZoD56Df1KENJf3ZFUTYSEA-VtNlqXiZmTSNb95GCzMSbw7_jvmJeLV7LDTQz6iffV4i08ipxEoqzvPdXEEnmFNZjJsIdbaMHo2SoVmemgm-8MvsYt9mAV627Zg4tR36YnJyZoCdIgfNLINwcboNeCEv6yRwdpuebtS8W3-Z_QN2GjDyzA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6">
+<p class="font-display-brand text-2xl text-on-surface">Precision Engineered</p>
+<p class="text-sm text-on-surface-variant">Metric. Imperial. Absolute.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container-highest border-t border-outline-variant fixed bottom-0 left-0 right-0 flex justify-around items-center h-16 z-50">
+<button class="flex flex-col items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined" data-icon="straighten">straighten</span>
+<span class="text-[10px] uppercase font-bold">Convert</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-[10px] uppercase">History</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+<span class="text-[10px] uppercase">Swap</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] uppercase">Profile</span>
+</button>
+</nav>
+<!-- FAB (Contextual) -->
+<button class="fixed bottom-24 right-8 bg-tertiary text-on-tertiary w-14 h-14 rounded-full shadow-[0_0_20px_rgba(0,230,57,0.4)] flex items-center justify-center hover:scale-105 transition-transform z-[60] md:bottom-8">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</body></html>
