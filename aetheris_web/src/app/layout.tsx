@@ -26,6 +26,8 @@ export const metadata: Metadata = {
   description: "A professional-grade scientific calculator that merges Skeuomorphic Hardware Design with Antigravity UI.",
 };
 
+import { PwaInstallPopup } from "@/components/PwaInstallPopup";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,9 +37,12 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#00e639" />
       </head>
       <body className={`${barlow.variable} ${instrumentSerif.variable} ${workSans.variable} bg-background text-on-surface selection:bg-tertiary selection:text-on-tertiary min-h-screen flex items-center justify-center p-4`}>
         {children}
+        <PwaInstallPopup />
         <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_center,_#1e2020_0%,_#0c0f0f_100%)]"></div>
       </body>
     </html>
