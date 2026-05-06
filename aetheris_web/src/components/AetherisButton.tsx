@@ -18,11 +18,11 @@ export const AetherisButton: React.FC<ButtonProps> = ({
 }) => {
   const [isActive, setIsActive] = useState(false);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) => {
     SoundManager.init();
     SoundManager.playClick();
     setIsActive(true);
-    if (onMouseDown) onMouseDown(e);
+    if (onMouseDown && "button" in e) onMouseDown(e);
   };
 
   const handleMouseUp = () => {
