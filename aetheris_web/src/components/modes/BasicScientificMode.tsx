@@ -27,19 +27,19 @@ export const BasicScientificMode: React.FC<Props> = ({
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginBottom: "24px", zIndex: 20 }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginBottom: "clamp(12px, 3vw, 24px)", zIndex: 20 }}>
         <div style={{ display: "flex", backgroundColor: "#121212", borderRadius: "24px", padding: "4px", border: "1px solid #333535" }}>
           <button 
             onClick={() => setMode("BASIC")}
             className={`aetheris-btn ${mode === "BASIC" ? "aetheris-btn-primary" : ""}`}
-            style={{ minHeight: "32px", width: "80px", fontSize: "10px", borderRadius: "20px", boxShadow: mode === "BASIC" ? "0 2px 4px rgba(0,0,0,0.5)" : "none", background: mode === "BASIC" ? "" : "transparent" }}
+            style={{ minHeight: "clamp(28px, 6vh, 32px)", width: "clamp(60px, 15vw, 80px)", fontSize: "clamp(8px, 2vw, 10px)", borderRadius: "20px", boxShadow: mode === "BASIC" ? "0 2px 4px rgba(0,0,0,0.5)" : "none", background: mode === "BASIC" ? "" : "transparent" }}
           >
             BASIC
           </button>
           <button 
             onClick={() => setMode("SCIENTIFIC")}
             className={`aetheris-btn ${mode === "SCIENTIFIC" ? "aetheris-btn-primary" : ""}`}
-            style={{ minHeight: "32px", width: "80px", fontSize: "10px", borderRadius: "20px", boxShadow: mode === "SCIENTIFIC" ? "0 2px 4px rgba(0,0,0,0.5)" : "none", background: mode === "SCIENTIFIC" ? "" : "transparent" }}
+            style={{ minHeight: "clamp(28px, 6vh, 32px)", width: "clamp(60px, 15vw, 80px)", fontSize: "clamp(8px, 2vw, 10px)", borderRadius: "20px", boxShadow: mode === "SCIENTIFIC" ? "0 2px 4px rgba(0,0,0,0.5)" : "none", background: mode === "SCIENTIFIC" ? "" : "transparent" }}
           >
             SCIENTIFIC
           </button>

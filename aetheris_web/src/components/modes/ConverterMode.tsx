@@ -83,50 +83,49 @@ export const ConverterMode: React.FC<{ apiKey: string }> = ({ apiKey }) => {
   };
 
   return (
-    <div className="flex flex-col gap-3 z-20 h-full font-button-label">
-      <div className="grid grid-cols-4 gap-1">
+    <div style={{ display: "flex", flexDirection: "column", gap: "12px", zIndex: 20, height: "100%" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "4px" }}>
         {(["Length", "Weight", "Temp", "Currency"] as Category[]).map(c => (
-          <button key={c} onClick={() => handleCatChange(c)} className={`py-2 text-[10px] rounded-xl border transition-all ${category === c ? 'bg-tertiary text-[#003907] border-tertiary shadow-lg font-bold tracking-wider' : 'bg-surface-container text-on-surface-variant border-outline-variant/20 hover:bg-surface-container-high'}`}>{c.toUpperCase().slice(0,4)}</button>
+          <button key={c} onClick={() => handleCatChange(c)} style={{ padding: "8px 4px", fontSize: "clamp(8px, 2vw, 10px)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.1)", backgroundColor: category === c ? "#00e639" : "rgba(255,255,255,0.05)", color: category === c ? "#003907" : "#c4c7c7", fontWeight: category === c ? "bold" : "normal", transition: "all 0.2s" }}>{c.toUpperCase().slice(0,4)}</button>
         ))}
       </div>
 
-      <div className="flex flex-col gap-2 bg-[#080808] lcd-recess p-3 rounded-xl border border-black relative shrink-0">
-        <div className="absolute inset-0 scanlines opacity-30 z-10 pointer-events-none rounded-xl"></div>
-        <div className="absolute inset-0 lcd-grid opacity-10 z-10 pointer-events-none rounded-xl"></div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px", backgroundColor: "#080808", borderRadius: "12px", padding: "12px", border: "1px solid #000", position: "relative", flexShrink: 0 }}>
+        <div className="lcd-scanlines" style={{ opacity: 0.2 }}></div>
         
-        <div className="flex justify-between items-center relative z-20">
-          <div className="text-[10px] tracking-widest text-tertiary/50">FROM:</div>
-          <div className="text-tertiary font-lcd-main text-2xl truncate">{amount}</div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative", zIndex: 20 }}>
+          <div style={{ fontSize: "9px", letterSpacing: "1px", color: "rgba(0, 230, 57, 0.4)" }}>FROM:</div>
+          <div style={{ color: "#00e639", fontSize: "20px", fontWeight: "bold" }}>{amount}</div>
         </div>
         
-        <div className="flex justify-between items-center relative z-20 mt-2 pt-2 border-t border-tertiary/10">
-          <div className="text-[10px] tracking-widest text-tertiary/50">TO:</div>
-          <div className="text-tertiary font-lcd-main text-2xl truncate lcd-glow">{result}</div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative", zIndex: 20, marginTop: "8px", paddingTop: "8px", borderTop: "1px solid rgba(0, 230, 57, 0.1)" }}>
+          <div style={{ fontSize: "9px", letterSpacing: "1px", color: "rgba(0, 230, 57, 0.4)" }}>TO:</div>
+          <div style={{ color: "#00e639", fontSize: "20px", fontWeight: "bold", textShadow: "0 0 10px rgba(0, 230, 57, 0.5)" }}>{result}</div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 shrink-0">
-        <AetherisButton onClick={cycleFromUnit} className="h-10 text-xs">UNIT 1: {fromUnit.toUpperCase()}</AetherisButton>
-        <AetherisButton onClick={cycleToUnit} className="h-10 text-xs">UNIT 2: {toUnit.toUpperCase()}</AetherisButton>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", flexShrink: 0 }}>
+        <AetherisButton onClick={cycleFromUnit} style={{ minHeight: "40px", fontSize: "11px" }}>UNIT 1: {fromUnit.toUpperCase()}</AetherisButton>
+        <AetherisButton onClick={cycleToUnit} style={{ minHeight: "40px", fontSize: "11px" }}>UNIT 2: {toUnit.toUpperCase()}</AetherisButton>
       </div>
 
-      <div className="grid grid-cols-4 gap-2 mt-auto">
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("7")}>7</AetherisButton>
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("8")}>8</AetherisButton>
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("9")}>9</AetherisButton>
-        <AetherisButton className="text-xs h-12 text-error" onClick={() => handleInput("CLR")}>CLR</AetherisButton>
+      <div className="aetheris-grid grid-cols-4" style={{ marginTop: "auto" }}>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("7")}>7</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("8")}>8</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("9")}>9</AetherisButton>
+        <AetherisButton onClick={() => handleInput("CLR")} style={{ color: "#ffb4ab", fontSize: "12px" }}>CLR</AetherisButton>
 
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("4")}>4</AetherisButton>
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("5")}>5</AetherisButton>
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("6")}>6</AetherisButton>
-        <AetherisButton className="text-xs h-12 text-tertiary" onClick={() => handleInput("DEL")}>DEL</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("4")}>4</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("5")}>5</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("6")}>6</AetherisButton>
+        <AetherisButton onClick={() => handleInput("DEL")} style={{ color: "#00e639", fontSize: "12px" }}>DEL</AetherisButton>
 
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("1")}>1</AetherisButton>
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("2")}>2</AetherisButton>
-        <AetherisButton variant="elevated-primary" className="text-sm h-12" onClick={() => handleInput("3")}>3</AetherisButton>
-        <AetherisButton variant="elevated-primary" className="text-sm h-[104px] row-span-2" onClick={() => handleInput(".")}>.</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("1")}>1</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("2")}>2</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("3")}>3</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput(".")} style={{ gridRow: "span 2", minHeight: "100%" }}>.</AetherisButton>
 
-        <AetherisButton variant="elevated-primary" className="text-sm h-12 col-span-3" onClick={() => handleInput("0")}>0</AetherisButton>
+        <AetherisButton variant="elevated-primary" onClick={() => handleInput("0")} style={{ gridColumn: "span 3" }}>0</AetherisButton>
       </div>
     </div>
   );
