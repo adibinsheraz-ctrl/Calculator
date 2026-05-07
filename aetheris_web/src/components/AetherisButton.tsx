@@ -9,7 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-export const AetherisButton: React.FC<ButtonProps> = ({ 
+export const AetherisButton = React.memo<ButtonProps>(({ 
   children, 
   variant = "elevated", 
   className = "",
@@ -19,23 +19,23 @@ export const AetherisButton: React.FC<ButtonProps> = ({
   const [isActive, setIsActive] = useState(false);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) => {
-    SoundManager.init();
     SoundManager.playClick();
     setIsActive(true);
     if (onMouseDown && "button" in e) onMouseDown(e);
   };
 
+
   const handleMouseUp = () => {
     setIsActive(false);
   };
 
-  let variantClass = "aetheris-btn";
-  if (variant === "elevated-primary") {
-    variantClass = "aetheris-btn aetheris-btn-primary";
-  } else if (variant === "elevated-tertiary") {
-    variantClass = "aetheris-btn aetheris-btn-tertiary";
-  }
+  const variantClasses = {
+    "elevated": "aetheris-btn",
+    "elevated-primary": "aetheris-btn aetheris-btn-primary",
+    "elevated-tertiary": "aetheris-btn aetheris-btn-tertiary",
+  };
 
+  const variantClass = variantClasses[variant] || "aetheris-btn";
   const activeClass = isActive ? "active" : "";
 
   return (
@@ -48,8 +48,11 @@ export const AetherisButton: React.FC<ButtonProps> = ({
       className={`${variantClass} ${activeClass} ${className}`}
       {...props}
     >
-      <div style={{ position: "absolute", inset: 0, backgroundColor: "white", opacity: 0.05, pointerEvents: "none" }} />
-      <span style={{ position: "relative", zIndex: 10 }}>{children}</span>
+      <div className="btn-overlay" />
+      <span className="btn-content">{children}</span>
     </button>
   );
-};
+});
+
+AetherisButton.displayName = "AetherisButton";
+

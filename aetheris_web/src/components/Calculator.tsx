@@ -1,19 +1,24 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import { create, all } from "mathjs";
 import { AetherisButton } from "./AetherisButton";
-import { Settings, Menu, Calculator as CalcIcon, FlaskConical, Terminal, LineChart, Grid3x3, BarChart, ArrowRightLeft } from "lucide-react";
-import { BasicScientificMode } from "./modes/BasicScientificMode";
-import { ProgrammerMode } from "./modes/ProgrammerMode";
-import { GraphingMode } from "./modes/GraphingMode";
-import { MatrixMode } from "./modes/MatrixMode";
-import { StatisticsMode } from "./modes/StatisticsMode";
-import { ConverterMode } from "./modes/ConverterMode";
+import { Settings, Menu } from "lucide-react";
+
+// Lazy load modes for better initial performance
+const BasicScientificMode = dynamic(() => import("./modes/BasicScientificMode").then(m => m.BasicScientificMode));
+const ProgrammerMode = dynamic(() => import("./modes/ProgrammerMode").then(m => m.ProgrammerMode));
+const GraphingMode = dynamic(() => import("./modes/GraphingMode").then(m => m.GraphingMode));
+const MatrixMode = dynamic(() => import("./modes/MatrixMode").then(m => m.MatrixMode));
+const StatisticsMode = dynamic(() => import("./modes/StatisticsMode").then(m => m.StatisticsMode));
+const ConverterMode = dynamic(() => import("./modes/ConverterMode").then(m => m.ConverterMode));
+const AboutMode = dynamic(() => import("./modes/AboutMode").then(m => m.AboutMode));
 
 // Create a configured mathjs instance with 64-bit BigNumber precision
 const math = create(all, { number: 'BigNumber', precision: 64 });
+
 
 type Mode = "BASIC" | "SCIENTIFIC" | "PROGRAMMER" | "GRAPHING" | "MATRIX" | "STATISTICS" | "CONVERTER" | "ABOUT";
 
@@ -24,7 +29,6 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
   const [history, setHistory] = useState<{expr: string, res: string}[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isShifted, setIsShifted] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   // Math Logic Controller (Shared)
   const handleInput = (val: string) => {
@@ -63,11 +67,11 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
     setExpression(prev => prev.slice(0, -1));
   };
 
-  const isStandardLCD = ["BASIC", "SCIENTIFIC", "PROGRAMMER"].includes(mode);
+  const isStandardLCD = useMemo(() => ["BASIC", "SCIENTIFIC", "PROGRAMMER"].includes(mode), [mode]);
 
   return (
     <div className="aetheris-chassis">
-      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", minHeight: "48px", zIndex: 20 }}>
+      <header className="flex-between" style={{ minHeight: "48px", zIndex: 20 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <Menu className="cursor-pointer" style={{ color: "#c4c7c7", width: "24px", height: "24px" }} onClick={() => setIsDrawerOpen(!isDrawerOpen)} />
           <h1 style={{ fontSize: "clamp(16px, 5vw, 20px)", fontWeight: "bold", letterSpacing: "2px", color: "#e2e2e2", margin: 0 }}>AETHERIS</h1>
@@ -98,17 +102,39 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
         </section>
       )}
 
-      {mode === "ABOUT" && (
-        <div style={{ flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: "16px", zIndex: 20, padding: "20px" }}>
-          <h2 style={{ fontSize: "24px", color: "#00e639" }}>ADIAGENCY</h2>
-          <div style={{ color: "#c4c7c7", fontSize: "14px" }}>
-            <p>Aetheris Physical Product Plate</p>
-            <p>Lead Developer: ADI BIN SHERAZ</p>
-            <p>adi.binsheraz@gmail.com</p>
-          </div>
-          <AetherisButton onClick={() => setMode("BASIC")} style={{ width: "100%", padding: "12px", marginTop: "20px" }}>Back to Calculator</AetherisButton>
+      {/* Physical Mode Bar - Improved Discoverability */}
+      <div className="mode-bar-container">
+        <div className="mode-bar-flex">
+          {[
+            { m: "BASIC", label: "Basic" },
+            { m: "SCIENTIFIC", label: "Scientific" },
+            { m: "PROGRAMMER", label: "Programmer" },
+            { m: "GRAPHING", label: "Graphing" },
+            { m: "MATRIX", label: "Matrix" },
+            { m: "STATISTICS", label: "Statistics" },
+            { m: "CONVERTER", label: "Converter" },
+          ].map(item => (
+            <button 
+              key={item.m} 
+              onClick={() => {
+                setMode(item.m as Mode);
+                // Play sound for tactile feedback
+                import("./SoundManager").then(m => m.SoundManager.playClick());
+              }} 
+              className={`mode-bar-btn ${mode === item.m ? "active" : ""}`}
+            >
+              {mode === item.m && <div className="mode-indicator-dot"></div>}
+              {item.label}
+            </button>
+          ))}
         </div>
+      </div>
+
+
+      {mode === "ABOUT" && (
+        <AboutMode onBack={() => setMode("BASIC")} />
       )}
+
 
       {(mode === "BASIC" || mode === "SCIENTIFIC") && (
         <BasicScientificMode 
@@ -139,9 +165,9 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
-            style={{ position: "absolute", bottom: 0, left: 0, width: "100%", backgroundColor: "#1e2020", borderTop: "1px solid #444748", padding: "clamp(16px, 5vw, 24px)", borderTopLeftRadius: "32px", borderTopRightRadius: "32px", boxShadow: "0 -10px 50px rgba(0,0,0,0.5)", zIndex: 100, boxSizing: "border-box" }}
+            className="drawer-nav"
           >
-            <div style={{ width: "40px", height: "4px", backgroundColor: "#444748", borderRadius: "2px", margin: "0 auto 24px", cursor: "pointer" }} onClick={() => setIsDrawerOpen(false)}></div>
+            <div className="drawer-handle" onClick={() => setIsDrawerOpen(false)}></div>
             <h2 style={{ color: "#e2e2e2", fontSize: "18px", marginBottom: "16px", fontWeight: "600" }}>MODES</h2>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
               {[
@@ -164,3 +190,4 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
     </div>
   );
 };
+

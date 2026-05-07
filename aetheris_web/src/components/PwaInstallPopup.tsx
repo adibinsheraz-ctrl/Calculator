@@ -68,8 +68,8 @@ export const PwaInstallPopup = () => {
           exit={{ opacity: 0, y: 20, scale: 0.9 }}
           className="fixed bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-80 z-[100]"
         >
-          <div className="bg-[#1a1c1c] border border-white/10 rounded-2xl p-5 shadow-2xl backdrop-blur-xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-1 h-full bg-[#00e639]"></div>
+          <div className="pwa-popup-card">
+            <div className="pwa-accent-bar"></div>
             
             <button 
               onClick={handleDismiss}
@@ -100,6 +100,7 @@ export const PwaInstallPopup = () => {
             </AetherisButton>
           </div>
         </motion.div>
+
       )}
     </AnimatePresence>
   );

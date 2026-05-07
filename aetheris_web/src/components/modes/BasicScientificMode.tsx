@@ -27,32 +27,13 @@ export const BasicScientificMode: React.FC<Props> = ({
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginBottom: "clamp(12px, 3vw, 24px)", zIndex: 20 }}>
-        <div style={{ display: "flex", backgroundColor: "#121212", borderRadius: "24px", padding: "4px", border: "1px solid #333535" }}>
-          <button 
-            onClick={() => setMode("BASIC")}
-            className={`aetheris-btn ${mode === "BASIC" ? "aetheris-btn-primary" : ""}`}
-            style={{ minHeight: "clamp(28px, 6vh, 32px)", width: "clamp(60px, 15vw, 80px)", fontSize: "clamp(8px, 2vw, 10px)", borderRadius: "20px", boxShadow: mode === "BASIC" ? "0 2px 4px rgba(0,0,0,0.5)" : "none", background: mode === "BASIC" ? "" : "transparent" }}
-          >
-            BASIC
-          </button>
-          <button 
-            onClick={() => setMode("SCIENTIFIC")}
-            className={`aetheris-btn ${mode === "SCIENTIFIC" ? "aetheris-btn-primary" : ""}`}
-            style={{ minHeight: "clamp(28px, 6vh, 32px)", width: "clamp(60px, 15vw, 80px)", fontSize: "clamp(8px, 2vw, 10px)", borderRadius: "20px", boxShadow: mode === "SCIENTIFIC" ? "0 2px 4px rgba(0,0,0,0.5)" : "none", background: mode === "SCIENTIFIC" ? "" : "transparent" }}
-          >
-            SCIENTIFIC
-          </button>
-        </div>
-      </div>
-
       <div className={`aetheris-grid ${isScientific ? 'grid-cols-5' : 'grid-cols-4'}`}>
+
         {/* Row 1 */}
         {isScientific && (
           <AetherisButton 
             onClick={() => setIsShifted(!isShifted)} 
-            className={`aetheris-btn-shift`}
-            style={isShifted ? { filter: "brightness(1.2)", boxShadow: "0 0 10px #00e639" } : {}}
+            className={`aetheris-btn-shift ${isShifted ? "active-shift" : ""}`}
           >
             SHIFT
           </AetherisButton>
@@ -61,6 +42,7 @@ export const BasicScientificMode: React.FC<Props> = ({
         <AetherisButton onClick={backspace}><Delete size={20} /></AetherisButton>
         <AetherisButton onClick={clear} style={{ color: "#ffb4ab" }}>C</AetherisButton>
         <AetherisButton onClick={() => handleSciInput("/")} style={{ color: "#00e639" }}><Divide size={20} /></AetherisButton>
+
 
         {/* Row 2 */}
         {isScientific && (
