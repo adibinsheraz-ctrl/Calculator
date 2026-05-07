@@ -21,10 +21,14 @@ export const ConverterMode: React.FC<{ apiKey: string }> = ({ apiKey }) => {
 
   useEffect(() => {
     if (category === "Currency") {
-      fetch(`https://api.exchangerate-api.com/v4/latest/USD`)
+      fetch(`https://open.er-api.com/v6/latest/USD`)
         .then(res => res.json())
-        .then(data => setCurrencyRates(data.rates))
-        .catch(() => {});
+        .then(data => {
+          if (data && data.rates) {
+            setCurrencyRates(data.rates);
+          }
+        })
+        .catch((err) => console.error("Currency fetch failed:", err));
     }
   }, [category, apiKey]);
 
@@ -41,16 +45,21 @@ export const ConverterMode: React.FC<{ apiKey: string }> = ({ apiKey }) => {
       else if (toUnit === "F") res = (c * 9/5) + 32;
       else if (toUnit === "K") res = c + 273.15;
       
-      setResult(res.toFixed(2));
+      setResult(res.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 }));
     } else {
       let rates: any = units[category as keyof typeof units];
       if (category === "Currency") rates = currencyRates;
 
-      const baseVal = val * rates[fromUnit];
-      const finalVal = baseVal / rates[toUnit];
-      setResult(finalVal.toFixed(4));
+      const baseVal = val / rates[fromUnit]; // Convert to base (USD for currency)
+      const finalVal = baseVal * rates[toUnit]; // Convert from base
+      
+      setResult(finalVal.toLocaleString(undefined, { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 6 
+      }));
     }
   }, [amount, fromUnit, toUnit, category, currencyRates]);
+
 
   const handleCatChange = (cat: Category) => {
     setCategory(cat);

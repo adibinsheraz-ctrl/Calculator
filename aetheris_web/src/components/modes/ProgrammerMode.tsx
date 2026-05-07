@@ -79,12 +79,46 @@ export const ProgrammerMode: React.FC<Props> = ({ handleInput, clear, backspace,
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%", zIndex: 20 }}>
-      <div style={{ marginTop: "16px", marginBottom: "8px", display: "flex", justifyContent: "space-between", gap: "4px", zIndex: 20, width: "100%", fontSize: "clamp(8px, 2.5vw, 10px)", color: "#c4c7c7" }}>
-        <div onClick={() => setBase("HEX")} style={{ cursor: "pointer", padding: "4px", borderRadius: "4px", width: "25%", textAlign: "center", backgroundColor: base === "HEX" ? "#00e639" : "rgba(255,255,255,0.05)", color: base === "HEX" ? "#003907" : "#c4c7c7", fontWeight: base === "HEX" ? "bold" : "normal", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>HEX<br/>{convertValue(result, "HEX")}</div>
-        <div onClick={() => setBase("DEC")} style={{ cursor: "pointer", padding: "4px", borderRadius: "4px", width: "25%", textAlign: "center", backgroundColor: base === "DEC" ? "#00e639" : "rgba(255,255,255,0.05)", color: base === "DEC" ? "#003907" : "#c4c7c7", fontWeight: base === "DEC" ? "bold" : "normal", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>DEC<br/>{convertValue(result, "DEC")}</div>
-        <div onClick={() => setBase("OCT")} style={{ cursor: "pointer", padding: "4px", borderRadius: "4px", width: "25%", textAlign: "center", backgroundColor: base === "OCT" ? "#00e639" : "rgba(255,255,255,0.05)", color: base === "OCT" ? "#003907" : "#c4c7c7", fontWeight: base === "OCT" ? "bold" : "normal", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>OCT<br/>{convertValue(result, "OCT")}</div>
-        <div onClick={() => setBase("BIN")} style={{ cursor: "pointer", padding: "4px", borderRadius: "4px", width: "25%", textAlign: "center", backgroundColor: base === "BIN" ? "#00e639" : "rgba(255,255,255,0.05)", color: base === "BIN" ? "#003907" : "#c4c7c7", fontWeight: base === "BIN" ? "bold" : "normal", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>BIN<br/>{convertValue(result, "BIN")}</div>
+      <div style={{ 
+        marginTop: "16px", 
+        marginBottom: "8px", 
+        display: "grid", 
+        gridTemplateColumns: "1fr 1fr", 
+        gap: "6px", 
+        zIndex: 20, 
+        width: "100%", 
+        fontSize: "10px", 
+        color: "#c4c7c7" 
+      }}>
+        {[
+          { b: "HEX", val: convertValue(result, "HEX") },
+          { b: "DEC", val: convertValue(result, "DEC") },
+          { b: "OCT", val: convertValue(result, "OCT") },
+          { b: "BIN", val: convertValue(result, "BIN") }
+        ].map(item => (
+          <div 
+            key={item.b}
+            onClick={() => setBase(item.b as any)} 
+            style={{ 
+              cursor: "pointer", 
+              padding: "6px 8px", 
+              borderRadius: "8px", 
+              backgroundColor: base === item.b ? "#00e639" : "rgba(255,255,255,0.03)", 
+              color: base === item.b ? "#003907" : "#c4c7c7", 
+              fontWeight: base === item.b ? "bold" : "500", 
+              border: "1px solid rgba(255,255,255,0.05)",
+              display: "flex",
+              justify-content: "space-between",
+              alignItems: "center",
+              minWidth: 0
+            }}
+          >
+            <span style={{ opacity: 0.6 }}>{item.b}</span>
+            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginLeft: "4px" }}>{item.val}</span>
+          </div>
+        ))}
       </div>
+
 
       <div className="aetheris-grid grid-cols-4" style={{ marginTop: "8px" }}>
         <AetherisButton onClick={() => handleProgrammerInput("A")} disabled={base !== "HEX"}>A</AetherisButton>

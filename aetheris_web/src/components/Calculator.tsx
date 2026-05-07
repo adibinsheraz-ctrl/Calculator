@@ -19,7 +19,6 @@ const AboutMode = dynamic(() => import("./modes/AboutMode").then(m => m.AboutMod
 // Create a configured mathjs instance with 64-bit BigNumber precision
 const math = create(all, { number: 'BigNumber', precision: 64 });
 
-
 type Mode = "BASIC" | "SCIENTIFIC" | "PROGRAMMER" | "GRAPHING" | "MATRIX" | "STATISTICS" | "CONVERTER" | "ABOUT";
 
 export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" }: { apiKey?: string }) => {
@@ -48,10 +47,20 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
     try {
       if (!expression) return;
       let sanitizedExpr = expression.replace(/×/g, "*").replace(/÷/g, "/");
+      
+      // Use evaluate with the configured math instance
       const evaluated = math.evaluate(sanitizedExpr);
-      const formattedResult = math.format(evaluated, { precision: 14 });
+      
+      // Improved formatting: higher precision and better scientific notation
+      const formattedResult = math.format(evaluated, { 
+        precision: 16,
+        upperExp: 14,
+        lowerExp: -14,
+        notation: 'auto'
+      });
+
       setHistory(prev => [...prev.slice(-4), { expr: expression, res: formattedResult }]);
-      setResult(formattedResult);
+      setResult(formattedResult.toString());
       setExpression("");
     } catch (e) {
       setResult("Error");
@@ -96,7 +105,7 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
             <div style={{ color: "#00e639", marginTop: "4px" }}>{expression}</div>
           </div>
 
-          <div className="lcd-glow-text">
+          <div className="lcd-glow-text" style={{ fontSize: result.length > 12 ? "clamp(24px, 8vw, 32px)" : "clamp(32px, 10vw, 48px)" }}>
             {result}
           </div>
         </section>
@@ -118,7 +127,6 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
               key={item.m} 
               onClick={() => {
                 setMode(item.m as Mode);
-                // Play sound for tactile feedback
                 import("./SoundManager").then(m => m.SoundManager.playClick());
               }} 
               className={`mode-bar-btn ${mode === item.m ? "active" : ""}`}
@@ -130,11 +138,9 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
         </div>
       </div>
 
-
       {mode === "ABOUT" && (
         <AboutMode onBack={() => setMode("BASIC")} />
       )}
-
 
       {(mode === "BASIC" || mode === "SCIENTIFIC") && (
         <BasicScientificMode 
@@ -166,9 +172,13 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             className="drawer-nav"
+            style={{ paddingBottom: "40px" }}
           >
             <div className="drawer-handle" onClick={() => setIsDrawerOpen(false)}></div>
-            <h2 style={{ color: "#e2e2e2", fontSize: "18px", marginBottom: "16px", fontWeight: "600" }}>MODES</h2>
+            <div className="flex-between" style={{ marginBottom: "16px" }}>
+              <h2 style={{ color: "#e2e2e2", fontSize: "18px", margin: 0, fontWeight: "600" }}>MODES</h2>
+              <button onClick={() => setIsDrawerOpen(false)} style={{ background: "transparent", border: "none", color: "#8e9192", cursor: "pointer" }}>CLOSE</button>
+            </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
               {[
                 { m: "BASIC", label: "Basic" },
@@ -184,10 +194,14 @@ export const Calculator = ({ apiKey = "AIzaSyDRjfZ3Dga_wL5V0asSCaXIE4w4hsQ3ZEs" 
                 </div>
               ))}
             </div>
+            <div style={{ marginTop: "24px" }}>
+               <AetherisButton variant="elevated-primary" onClick={() => setIsDrawerOpen(false)} style={{ width: "100%" }}>BACK TO CALCULATOR</AetherisButton>
+            </div>
           </motion.nav>
         )}
       </AnimatePresence>
     </div>
   );
 };
+
 

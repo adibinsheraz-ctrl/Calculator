@@ -37,10 +37,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#00e639" />
+        {/* Preload critical assets */}
+        <link rel="preload" href="/icon.png" as="image" />
       </head>
+
       <body className={`${barlow.variable} ${instrumentSerif.variable} ${workSans.variable} bg-background text-on-surface selection:bg-tertiary selection:text-on-tertiary min-h-screen flex items-center justify-center p-4`}>
         {/* Google Analytics */}
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ3QJ7YC7Q" strategy="afterInteractive" />
