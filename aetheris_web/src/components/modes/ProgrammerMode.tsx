@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AetherisButton } from '../AetherisButton';
 import { Delete, X, Minus, Plus, Equal, Divide } from 'lucide-react';
 
@@ -73,7 +73,7 @@ export const ProgrammerMode: React.FC<Props> = ({ handleInput, clear, backspace,
   };
 
   // Sync expression to upper LCD
-  React.useEffect(() => {
+  useEffect(() => {
     setExpression(expr);
   }, [expr, setExpression]);
 
@@ -108,7 +108,7 @@ export const ProgrammerMode: React.FC<Props> = ({ handleInput, clear, backspace,
               fontWeight: base === item.b ? "bold" : "500", 
               border: "1px solid rgba(255,255,255,0.05)",
               display: "flex",
-              justify-content: "space-between",
+              justifyContent: "space-between",
               alignItems: "center",
               minWidth: 0
             }}
@@ -118,7 +118,6 @@ export const ProgrammerMode: React.FC<Props> = ({ handleInput, clear, backspace,
           </div>
         ))}
       </div>
-
 
       <div className="aetheris-grid grid-cols-4" style={{ marginTop: "8px" }}>
         <AetherisButton onClick={() => handleProgrammerInput("A")} disabled={base !== "HEX"}>A</AetherisButton>
@@ -157,7 +156,7 @@ export const ProgrammerMode: React.FC<Props> = ({ handleInput, clear, backspace,
         <AetherisButton onClick={() => handleProgrammerInput("+")} style={{ color: "#00e639" }}><Plus size={20} /></AetherisButton>
 
         <div style={{ gridColumn: "span 4" }}>
-          <AetherisButton variant="elevated-tertiary" onClick={handleCalc}>
+          <AetherisButton variant="elevated-tertiary" onClick={handleCalc} style={{ width: "100%" }}>
             <Equal size={24} />
           </AetherisButton>
         </div>
